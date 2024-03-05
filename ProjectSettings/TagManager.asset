@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 258345081
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Pokemon
+    uniqueID: 2014845719
     locked: 0
