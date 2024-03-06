@@ -4,57 +4,74 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] Pokemon player;
+    [SerializeField] Pokemon player;    // 배틀에 필요한 포켓몬 둘
     [SerializeField] Pokemon enemy;
 
-    Queue<Pokemon> attackRank;
+    [SerializeField] BattleUI playerUI;
+    [SerializeField] BattleUI enemyUI;
+
+    Queue<BaseAction> actionRank;       // 큐에 행동을 담아두고, 스피드 순서로 넣으면 꺼낼 땐 먼저 나오니 이용
+
+    [SerializeField] bool isRoutine;
 
     private void OnEnable()
     {
+        isRoutine = false;
         Battle();
     }
 
     private void OnDisable()
     {
-        
+        EndBattle();
     }
 
     private void Awake()
     {
-        attackRank = new Queue<Pokemon>();
+        actionRank = new Queue<BaseAction>();
+    }
+
+    public void Update()
+    {
+        if(!isRoutine)
+        {
+            Battle();
+        }
     }
 
     private void Battle()
     {
-        // 1. 한 쪽이 죽기까지 or 종료조건까지 배틀 지속
-        // 플레이어의 스킬이 널이 아니라면 턴 진행하기?
-        while(player.Hp >= 0 || enemy.Hp >= 0)
+        StartCoroutine(BattleRoutine());
+    }
+
+    private void EndBattle()
+    {
+        // 배틀의 뒤처리?
+    }
+
+    IEnumerator BattleRoutine()
+    {
+        isRoutine = true;
+        yield return SelectRoutine();   // 플레이어 선택
+
+        Debug.Log("행동 시작");
+
+        while(actionRank.Count > 0)     // 큐에 담아둔 모든 행동 실행
         {
-            // 먼저 스피드가 빠른 순으로 공격
-            
-            if(player.Speed > enemy.Speed)
-            {
-                Debug.Log("플레이어가 더 빠릅니다. 공격순서 플레이어 -> 적");
-                attackRank.Enqueue(player);
-                attackRank.Enqueue(enemy);
-            }
-            else
-            {
-                attackRank.Enqueue(enemy);
-                attackRank.Enqueue(player);
-            }
-
-            Debug.Log("큐에 넣어둔 데이터로 공격시작");
-            while (attackRank.Count > 0)
-            {
-                Pokemon attacker = attackRank.Dequeue();
-                attacker.AttackEnemy();
-            }
-            Debug.Log("한 턴 끝");
-            
-
-
+            Debug.Log("행동 실행");
+            BaseAction nextAction = actionRank.Dequeue();
+            nextAction.Execute();
         }
-        
+
+        Debug.Log("행동 끝");
+        player.SetAction(null);
+        isRoutine = false;
+    }
+
+    IEnumerator SelectRoutine()
+    {
+        Debug.Log("플레이어의 선택을 기다립니다.");
+        yield return new WaitUntil(() => (player.GetAction() != null));
+        actionRank.Enqueue(player.GetAction());         // 선택이 끝난 액션은 큐에 넣고
+        Debug.Log("선택 끝");
     }
 }
