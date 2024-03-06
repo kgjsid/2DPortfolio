@@ -5,33 +5,54 @@ using UnityEngine.UI;
 
 public class Pokemon : MonoBehaviour, IDamagable
 {
-    [SerializeField] int level;
-    [SerializeField] int hp;
-    [SerializeField] int damage;
-    [SerializeField] float speed;
-    [SerializeField] int controlType;
+    [SerializeField] string name;           // 이름
+    [SerializeField] int level;             // 레벨
+    [SerializeField] int hp;                // HP
+    [SerializeField] int damage;            // Damage
+    [SerializeField] int controlType;       // 0이면 player, 1이면 enemy?
+    [SerializeField] float speed;           // Speed
 
-    [SerializeField] Pokemon enemy;
-    [SerializeField] BaseAction currentAction;
-    [SerializeField] ActionButton button1;
-    [SerializeField] ActionButton button2;
-    [SerializeField] ActionButton button3;
-    [SerializeField] ActionButton button4;
+    [SerializeField] Pokemon enemy;                     // 상대방 포켓몬
+    [SerializeField] BaseAction currentAction;          // 현재 내 포켓몬의 액션
+    [SerializeField] List<BaseAction> possessedAction;  // 할 수 있는 행동들(max 4)
+    [SerializeField] ActionButton[] buttons;            // 버튼에 할당할 행동들
+    enum ControlType
+    {
+        player,
+        enemy
+    }
 
     public int Hp { get => hp; }
     public float Speed { get => speed; }
     public int Damage { get => damage; }
     public Pokemon Enemy { get => enemy; }
+    public string Name { get => name; }
+    public int Level { get => level; }
+    public List<BaseAction> PossessedAction { get => possessedAction; }
 
     private void Start()
     {
+
         if (controlType == 1)
-            return;
+        {
+            foreach (BaseAction action in PossessedAction)
+            {
+                action.SetOwner(this);
+            }
+        }
         
-        button1.SetOwner(this);
-        button2.SetOwner(this);
+        for(int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].SetOwner(this);                  //버튼의 주인은 나다
+
+            if (possessedAction.Count <= i)
+                return;
+
+            buttons[i].SetAction(possessedAction[i]);   // 각 버튼에 액션 장착
+        }
     }
 
+    // 버튼이 눌렸을 때 현재 액션 설정
     public void SetAction(BaseAction action)
     {
         if (controlType == 1)
