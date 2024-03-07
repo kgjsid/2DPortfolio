@@ -7,6 +7,7 @@ public class VineWhip : SkillData
 {
     public override void Execute(Pokemon user, Pokemon enemy)
     {
-        user.Enemy.TakeDamage(user.Damage);
+        int damage = AttackDamage(user, enemy);
+        user.Enemy.TakeDamage(damage);
     }
 }

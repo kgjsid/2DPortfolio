@@ -37,11 +37,11 @@ public class Pokemon : MonoBehaviour, IDamagable
     public int Level { get => level; }
     public List<SkillData> PossessedAction { get => data.possessedAction; }
     public PokemonData PokemonData { get => data; }
-    private void Start()
+
+    public void SetBattle()
     {
         SetButtons();
     }
-
     private void SetButtons()
     {   // 버튼에 대한 초기 설정(스킬 세팅하기)
         if (controlType == 1)
@@ -80,20 +80,13 @@ public class Pokemon : MonoBehaviour, IDamagable
     }
     public void TakeDamage(int damage)
     {
+        // 데미지 계산식이 필요함.. 상성과 크리티컬
         Debug.Log($"{damage}의 공격을 받았다!");
         hp -= damage;
         Debug.Log($"{hp}의 체력 남음");
         if (hp <= 0)
         {
             Destroy(this.gameObject);
-        }
-    }
-
-    public void TakeDamage(int damage, int damageType)
-    {
-        if(damageType == 0) // 물리 공격
-        {
-
         }
     }
 

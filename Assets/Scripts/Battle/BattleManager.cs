@@ -9,6 +9,7 @@ public class BattleManager : Singleton<BattleManager>
 
     [SerializeField] BattleUI playerUI;
     [SerializeField] BattleUI enemyUI;
+    [SerializeField] BattleSceneFlow battle;
 
     Queue<Pokemon> actionRank;       // 큐에 행동을 담아두고, 스피드 순서로 넣으면 꺼낼 땐 먼저 나오니 이용
     List<SkillData> enemyActions;
@@ -17,16 +18,12 @@ public class BattleManager : Singleton<BattleManager>
     int playerCurHp;
     int enemyCurHp;
 
-    private void OnEnable()
+    public void SetBattle()
     {
+        battle.BattleUI();
         enemyActions = enemy.PossessedAction; // 상대방이 할 수 있는 행동 저장하기
         SetUIs();
-        data.SetPokemon(player);
-        data.SettingData();
-        data.SetPokemon(enemy);
-        data.SettingData();
-        player.Enemy = enemy;
-        enemy.Enemy = player;
+        SetDatas();
         Battle();
     }
 
@@ -60,7 +57,7 @@ public class BattleManager : Singleton<BattleManager>
         Battle();
     }
 
-    public void SetUIs()
+    public void SetUIs() // UI 설정
     {
         playerUI.SetName(player.Name);
         playerUI.SetLevel(player.Level);
@@ -68,8 +65,19 @@ public class BattleManager : Singleton<BattleManager>
         enemyUI.SetLevel(enemy.Level);
     }
 
+    public void SetDatas() // 포켓몬 설정
+    {
+        data.SetPokemon(player);
+        data.SettingData();
+        data.SetPokemon(enemy);
+        data.SettingData();
+        player.Enemy = enemy;
+        enemy.Enemy = player;
+    }
+
+    // 배틀 루틴
     IEnumerator BattleRoutine()
-    { 
+    {   // 1. 행동 선택
         if (player.Speed > enemy.Speed)
         {
             yield return SelectRoutine();   // 1. 플레이어 선택
@@ -80,42 +88,31 @@ public class BattleManager : Singleton<BattleManager>
             EnemyRoutine();                 // 1. 적 선택
             yield return SelectRoutine();   // 2. 플레이어 선택
         }
-        Debug.Log("행동 시작");
-
+        // 2. 행동 실행
         while(actionRank.Count > 0)     // 큐에 담아둔 모든 행동 실행
         {
-            Debug.Log("행동 실행");
             playerCurHp = player.Hp;
             enemyCurHp = enemy.Hp;
             Pokemon nextAction = actionRank.Dequeue();
             nextAction.Execute();
 
-            Debug.Log("적 체력 루틴시작");
             yield return enemyUI.HpRoutine(enemyCurHp, enemy.Hp);
-            Debug.Log("적 체력 루틴끝");
             yield return playerUI.HpRoutine(playerCurHp, player.Hp);
-            Debug.Log("아군 체력 루틴 끝");
-
         }
-
-        Debug.Log("행동 끝");
+        // 3. 뒤 처리
         player.SetAction(null);
         EndBattle();
     }
 
     IEnumerator SelectRoutine()
     {
-        Debug.Log("플레이어의 선택을 기다립니다.");
         yield return new WaitUntil(() => (player.GetAction() != null));
         actionRank.Enqueue(player);         // 선택이 끝난 액션은 큐에 넣고
-        Debug.Log("선택 끝");
     }
 
     private void EnemyRoutine() // 상대방 루틴
     {
         // 랜덤한 상대방의 행동 넣기
-        Debug.Log("상대방이 행동을 정하고 있습니다...");
         actionRank.Enqueue(enemy);
-        Debug.Log("선택 완료");
     }
 }
