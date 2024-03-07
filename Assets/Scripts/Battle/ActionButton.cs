@@ -7,41 +7,40 @@ using UnityEngine.UI;
 
 public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    // 1. 자신이 장착하고 있는 스킬을 이용해서 버튼이 눌리면 플레이어에게 장착하라고 하기
-    // 2. 입력 들어오면 표시하기 위한 마커 표시? (>)
+    // 스크립터블 오브젝트 활용하여 스킬 장착하기
     [SerializeField] Button button;
-    [SerializeField] BaseAction action;
-    [SerializeField] Pokemon pokemon;
+    [SerializeField] SkillData skill;
+    [SerializeField] Pokemon owner;
     [SerializeField] TMP_Text text;
 
     private void Start()
     {
+        // 시작하였을 때 텍스트는 --, 버튼은 비활성화
         button = GetComponent<Button>();
-        // Data에서 action정보 다 가져오면 좋을 듯
-        // pokemon에 대한 참조도
         text.text = "--";
         button.interactable = false;
     }
 
-    public void SetAction(BaseAction action)
+    // 버튼 세팅함수
+    // 버튼에 이벤트 연결해두고, 텍스트 이름 바꾸기
+    public void SetButton(SkillData skill)
     {
-        this.action = action;
-        text.text = action.ActionName;
+        this.skill = skill;
+        text.text = skill.name;
         button.interactable = true;
     }
 
     public void OnClick()
-    {
-        if (action != null)
-        {
-            pokemon.SetAction(action);
-            action.SetOwner(pokemon);
+    {   // 클릭 이벤트
+        if (skill != null)
+        {   // 포켓몬의 현재 행동으로 스킬 넣어주기
+            owner.SetAction(skill);
         }
     }
 
-    public void SetOwner(Pokemon pokemon)
-    {
-        this.pokemon = pokemon;
+    public void SetOwner(Pokemon owner)
+    {   // 사용 주체 찾기
+        this.owner = owner;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

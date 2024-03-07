@@ -67,7 +67,6 @@ public class BattleUI : MonoBehaviour
             {
                 rate += 0.1f; 
                 hpSlider.value = Mathf.Lerp(curHp, targetHp, rate) / maxHp;
-                Debug.Log($"현재 값 : {hpSlider.value}, 목적지 : {(float)targetHp / maxHp}");
                 yield return new WaitForSeconds(0.1f);
             }
         }

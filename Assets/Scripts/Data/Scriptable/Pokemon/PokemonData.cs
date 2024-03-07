@@ -5,23 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Pokemon", menuName = "Data/Pokemon")]
 public class PokemonData : ScriptableObject
 {
-    // Todo.
-    // 포켓몬 데이터 전부 교체하기...
-    // 데이터 매니저로 슬슬 관리 시작하기?
-    public string name;
-    public int level;
-    public int hp;
-    public int damage;
-    public int controlType;
-    public float speed;
+    public string name;         // 포켓몬의 이름
+    public string type;         // 포켓몬 타입(풀, 불...)
+    public Sprite sprite;       // 포켓몬 이미지
 
-    public Pokemon enemy;
-    public BaseAction currentAction;
+    // 종족치(Individual Value)
+    public int H; // 체력
+    public int AP; // 어택 포인트
+    public int AD; // 어택 방어력
+    public int SP; // 특수 포인트
+    public int SD; // 특수 방어력
+    public int S;  // 스피드
 
-    public List<BaseAction> possessedAction;
+    // 능력치는 종족치와 계산식으로
+    // HP -> (H * 2) * (level / 100.0f) + 10 + level 
+    // 개체값과 노력치에 대한 부분은 찾을 수 없고, 숨겨진 요소...
 
-    public ActionButton button1;
-    public ActionButton button2;
-    public ActionButton button3;
-    public ActionButton button4;
+    public List<SkillData> possessedAction;    // 소지한 액션들, 스킬들
 }
