@@ -13,7 +13,7 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] Pokemon owner;
     [SerializeField] TMP_Text text;
 
-    private void Start()
+    private void OnEnable()
     {
         // 시작하였을 때 텍스트는 --, 버튼은 비활성화
         button = GetComponent<Button>();

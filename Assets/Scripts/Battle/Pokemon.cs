@@ -14,6 +14,7 @@ public class Pokemon : MonoBehaviour, IDamagable
     public int controlType;     // 컨트롤 타입(0 : 플레이어, 1 : 야생동물?, 2 : 적??)
 
     // 실제 스탯 / 능력치(Permanent Stats)
+    [Header("PokemonStats")]
     [SerializeField] int level;           // 포켓몬 레벨
     [SerializeField] int hp;              // 포켓몬 HP
     [SerializeField] int damage;          // 포켓몬 물리데미지
@@ -80,8 +81,6 @@ public class Pokemon : MonoBehaviour, IDamagable
     }
     public void TakeDamage(int damage)
     {
-        // 데미지 계산식이 필요함.. 상성과 크리티컬
-        Debug.Log($"{damage}의 공격을 받았다!");
         hp -= damage;
         Debug.Log($"{hp}의 체력 남음");
         if (hp <= 0)
@@ -97,8 +96,8 @@ public class Pokemon : MonoBehaviour, IDamagable
         {
             currentAction = PossessedAction[Random.Range(0, PossessedAction.Count)];
         }
+        BattleManager.Battle.DisplayLog($"{Name} used {currentAction.name}!");
         currentAction.Execute(this, enemy);
-
         currentAction = null;
     }
 }
