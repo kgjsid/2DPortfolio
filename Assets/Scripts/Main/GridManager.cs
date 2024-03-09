@@ -38,6 +38,14 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+    /*
+    public Vector2 ReturnPos(Vector2 currentPos)
+    {
+        Vector2 nearestTile;
 
-    
+
+
+        return nearestTile;
+    }
+    */
 }
