@@ -11,12 +11,14 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
 
     [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] LayerMask transitionLayer;
 
     Vector2 moveDir;
     Vector2 currentPoint;
     Vector2 nextPoint;
 
     bool isMove;
+    bool isTrigger;
     private void Start()
     {
         //tileSizeX = (int)tileMap.cellSize.x;
@@ -95,5 +97,52 @@ public class PlayerMove : MonoBehaviour
         }
         currentPoint = nextPoint;
         isMove = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & transitionLayer) != 0 && !isTrigger)
+        {
+            isTrigger = true;
+            StartCoroutine(TransitionRoutine(collision));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & transitionLayer) != 0 && isTrigger)
+        {
+            isTrigger = false;
+        }
+    }
+
+    private void FindNearestTile()
+    {
+        float minDistance = Mathf.Infinity;
+        Vector2 nearestPos = new Vector2(0, 0);
+        foreach(Vector2 tile in gridManager.points.Keys)
+        {
+            float distance = Vector2.Distance(transform.position, tile);
+            if(distance < minDistance)
+            {
+                minDistance = distance;
+                nearestPos = tile;
+            }
+        }
+
+        currentPoint = nearestPos;
+    }
+
+    IEnumerator TransitionRoutine(Collider2D collision)
+    {
+        // 트리거 진입해서 이동 -> 트리거 탈출하고 -> 이동 후 다시 트리거에 들어감 -> 다시 이동됨..
+        // 조금 더 조절하기(이동하고 한칸 앞으로 갈 수 있도록 설정)
+
+        ScreenTransition point = collision.gameObject.GetComponent<ScreenTransition>();
+        nextPoint = point.ReturnPosition();
+        currentPoint = point.ReturnPosition();
+        FindNearestTile();
+
+        yield return new WaitUntil(() => (isTrigger == false));
     }
 }

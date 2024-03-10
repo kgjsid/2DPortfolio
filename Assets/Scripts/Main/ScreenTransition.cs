@@ -1,33 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScreenTransition : MonoBehaviour
 {
-    [SerializeField] Transform[] points;
-    Vector2 currentPos;
-    Vector2 targetPos;
+    [SerializeField] Transform target; // 이동해야 할 위치
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-        // 충돌하였을 때 이동 루틴?
-        
     }
 
-    private void Transition()
+    public IEnumerator TransitionRoutine()
     {
-        float minDistance = Mathf.Infinity;
-        foreach(Transform temp in points)
-        {
-            float distance = Vector2.Distance(temp.position, currentPos);
-            if(minDistance > distance)
-            {
-                minDistance = distance;
-                currentPos = temp.position;
-            }
-        }
-
-        
+        yield return new WaitForSeconds(0.5f);
     }
 
+    public Vector2 ReturnPosition()
+    {
+        return target.position;
+    }
+
+    public void PositionChange(PlayerMove player)
+    {
+        Debug.Log("플레이어 이동");
+        player.gameObject.transform.position = target.position;
+    }
 }
