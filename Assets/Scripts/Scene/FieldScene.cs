@@ -2,16 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleScene : BaseScene
+public class FieldScene : BaseScene
 {
-    [SerializeField] Pokemon player;
-    [SerializeField] Pokemon enemy;
-
     public void LoadScene()
     {
-        Manager.Scene.LoadScene("FieldScene");
+        Manager.Scene.LoadScene("BattleScene");
     }
-
     public override IEnumerator LoadingRoutine()
     {
         yield return null;

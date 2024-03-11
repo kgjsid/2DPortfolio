@@ -45,7 +45,7 @@ public class SceneManager : Singleton<SceneManager>
         Manager.UI.CloseInGameUI();
 
         Time.timeScale = 0f;
-        loadingBar.gameObject.SetActive(true);
+        // loadingBar.gameObject.SetActive(true);
 
         AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
         while (oper.isDone == false)
@@ -59,7 +59,7 @@ public class SceneManager : Singleton<SceneManager>
         BaseScene curScene = GetCurScene();
         yield return curScene.LoadingRoutine();
 
-        loadingBar.gameObject.SetActive(false);
+        // loadingBar.gameObject.SetActive(false);
         Time.timeScale = 1f;
 
         yield return FadeIn();

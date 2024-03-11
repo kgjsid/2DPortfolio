@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
@@ -19,6 +20,9 @@ public class PlayerMove : MonoBehaviour
 
     bool isMove;
     bool isTrigger;
+
+    public UnityEvent transitionEvent;
+    public UnityEvent moveEvent;
     private void Start()
     {
         //tileSizeX = (int)tileMap.cellSize.x;
@@ -40,26 +44,24 @@ public class PlayerMove : MonoBehaviour
         // 도트 움직임 구현..
         if (!isMove)
         {
+            animator.SetFloat("xSpeed", moveDir.x);
+            animator.SetFloat("ySpeed", moveDir.y);
             if (moveDir.Equals(Vector2.right))
             {
-                animator.SetTrigger("MoveLeft");
                 spriteRenderer.flipX = true;
                 FindNextTile(Vector2.right);
             }
             if (moveDir.Equals(Vector2.left))
             {
-                animator.SetTrigger("MoveLeft");
                 spriteRenderer.flipX = false;
                 FindNextTile(Vector2.left);
             }
             if (moveDir.Equals(Vector2.up))
             {
-                animator.SetTrigger("MoveBack");
                 FindNextTile(Vector2.up);
             }
             if (moveDir.Equals(Vector2.down))
             {
-                animator.SetTrigger("MoveFront");
                 FindNextTile(Vector2.down);
             }
         }
@@ -79,6 +81,9 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
+        if (!gridManager.points.ContainsKey(currentPoint + nextPos))
+            FindNearestTile();
+
         if (gridManager.points.ContainsKey(currentPoint + nextPos))
             nextPoint = gridManager.points[currentPoint + nextPos];
         StartCoroutine(MoveRoutine());
@@ -97,14 +102,14 @@ public class PlayerMove : MonoBehaviour
         }
         currentPoint = nextPoint;
         isMove = false;
+        moveEvent?.Invoke();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & transitionLayer) != 0 && !isTrigger)
         {
-            isTrigger = true;
-            StartCoroutine(TransitionRoutine(collision));
+            StartCoroutine(TransitionRoutine(collision, moveDir));
         }
     }
 
@@ -112,7 +117,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & transitionLayer) != 0 && isTrigger)
         {
-            isTrigger = false;
+            // isTrigger = false;
         }
     }
 
@@ -129,20 +134,23 @@ public class PlayerMove : MonoBehaviour
                 nearestPos = tile;
             }
         }
-
         currentPoint = nearestPos;
+        transform.position = currentPoint;
     }
 
-    IEnumerator TransitionRoutine(Collider2D collision)
+    IEnumerator TransitionRoutine(Collider2D collision, Vector2 moveDir)
     {
         // 트리거 진입해서 이동 -> 트리거 탈출하고 -> 이동 후 다시 트리거에 들어감 -> 다시 이동됨..
         // 조금 더 조절하기(이동하고 한칸 앞으로 갈 수 있도록 설정)
-
+        transitionEvent?.Invoke();
+        isTrigger = true;
         ScreenTransition point = collision.gameObject.GetComponent<ScreenTransition>();
         nextPoint = point.ReturnPosition();
         currentPoint = point.ReturnPosition();
         FindNearestTile();
 
-        yield return new WaitUntil(() => (isTrigger == false));
+        yield return new WaitForSeconds(0.1f);
+        isTrigger = false;
+        
     }
 }
