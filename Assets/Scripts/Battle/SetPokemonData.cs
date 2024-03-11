@@ -8,6 +8,11 @@ public class SetPokemonData : MonoBehaviour
     // 스탯은 인터넷 참고....
     private Pokemon pokemon;
 
+    public void SetPokemon(Pokemon pokemon, PokemonData data)
+    {
+        this.pokemon = pokemon;
+        pokemon.PokemonData = data;
+    }
     public void SetPokemon(Pokemon pokemon)
     {
         this.pokemon = pokemon;
@@ -17,6 +22,7 @@ public class SetPokemonData : MonoBehaviour
     {
         SettingHpData();
         SettingOtherData();
+        SettingImage();
     }
 
     private void SettingHpData()
@@ -31,5 +37,9 @@ public class SetPokemonData : MonoBehaviour
         pokemon.Defence = (int)((pokemon.PokemonData.AD * 2) * 0.01f * pokemon.Level + 5);
         pokemon.SpecialDamage = (int)((pokemon.PokemonData.SP * 2) * 0.01f * pokemon.Level + 5);
         pokemon.SpecialDefence = (int)((pokemon.PokemonData.SP * 2) * 0.01f * pokemon.Level + 5);
+    }
+    private void SettingImage()
+    {
+        pokemon.Sprite.sprite = pokemon.PokemonData.sprite;
     }
 }

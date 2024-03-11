@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec29394c8f18a348887d004093fa669, type: 3}
+  m_Name: Charmander
+  m_EditorClassIdentifier: 
+  name: Charmander
+  type: fire
+  sprite: {fileID: -1620456946, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  iconImage1: {fileID: 1750604182, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  iconImage2: {fileID: 752972409, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  H: 39
+  AP: 52
+  AD: 43
+  SP: 60
+  SD: 50
+  S: 65
+  possessedAction: []

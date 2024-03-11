@@ -25,6 +25,7 @@ public class Pokemon : MonoBehaviour, IDamagable
 
     [SerializeField] Pokemon enemy;                      // 상대방에 대한 정보
     [SerializeField] SkillData currentAction;            // 현재 선택한 액션
+    [SerializeField] SpriteRenderer sprite;
 
     // 프로퍼티...
     public int Hp { get => hp; set => hp = value; }
@@ -35,9 +36,11 @@ public class Pokemon : MonoBehaviour, IDamagable
     public int SpecialDefence { get => specialDefence; set => specialDefence = value; }
     public Pokemon Enemy { get => enemy; set => enemy = value; }
     public string Name { get => data.name; }
-    public int Level { get => level; }
+    public int Level { get => level; set => level = value; }
     public List<SkillData> PossessedAction { get => data.possessedAction; }
-    public PokemonData PokemonData { get => data; }
+    public PokemonData PokemonData { get => data; set => data = value; }
+    public SpriteRenderer Sprite { get => sprite; }
+    
 
     public void SetBattle()
     {

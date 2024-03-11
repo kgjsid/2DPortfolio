@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ec29394c8f18a348887d004093fa669, type: 3}
-  m_Name: Bulbasaur
+  m_Name: Squirtle
   m_EditorClassIdentifier: 
-  name: Bulbasaur
-  type: grass
-  sprite: {fileID: 299022389, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
-  iconImage1: {fileID: -64689576, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
-  iconImage2: {fileID: 716128714, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
-  H: 45
-  AP: 49
-  AD: 49
-  SP: 65
-  SD: 65
-  S: 45
+  name: Squirtle
+  type: water
+  sprite: {fileID: -1549795578, guid: ae67cf4154bedf74c9c54f3f1b1ce6ac, type: 3}
+  H: 44
+  AP: 48
+  AD: 65
+  SP: 50
+  SD: 64
+  S: 43
   possessedAction:
   - {fileID: 11400000, guid: a2a1cfd19132a294993dd48816531a99, type: 2}
-  - {fileID: 11400000, guid: efc59a8b95a47dd41803d7d1204b782c, type: 2}
+  - {fileID: 11400000, guid: 4ff97076707610048be2043f044fb8d2, type: 2}

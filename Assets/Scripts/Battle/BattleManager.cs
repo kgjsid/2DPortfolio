@@ -129,9 +129,12 @@ public class BattleManager : MonoBehaviour
 
     public void SetDatas() // 포켓몬 설정
     {
-        data.SetPokemon(player); // 데이터 설정(어떤 포켓몬인지 넘겨주고)
+        // data.SetPokemon(player); // 데이터 설정(어떤 포켓몬인지 넘겨주고)
+        // 매니저에서 포켓몬 가져오기
+        data.SetPokemon(player, Manager.Game.GetPokemon().PokemonData);
         data.SettingData();      // 포켓몬의 능력치 설정(종족치와 레벨에 따라서 설정)
-        data.SetPokemon(enemy); 
+        data.SetPokemon(enemy, Manager.Game.GetPokemon().PokemonData); 
+        //data.SetPokemon(enemy);
         data.SettingData();
         player.Enemy = enemy;    // 상대방 정보 넘겨주고
         enemy.Enemy = player;
@@ -140,7 +143,6 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle() // 배틀 시작 설정
     {
-        Debug.Log("Manger StartBattle");
         skillSlot.gameObject.SetActive(true);  // 스킬 선택버튼은 띄우고
         selectLog.gameObject.SetActive(false); // 행동 선택은 비활성화
         player.SetBattle();

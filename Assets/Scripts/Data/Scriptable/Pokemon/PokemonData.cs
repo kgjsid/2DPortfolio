@@ -11,6 +11,9 @@ public class PokemonData : ScriptableObject
     public string type;         // 포켓몬 타입(풀, 불...)
     public Sprite sprite;       // 포켓몬 이미지
 
+    public Sprite iconImage1;   // 아이콘 이미지
+    public Sprite iconImage2;
+
     // 종족치(Individual Value)
     public int H; // 체력
     public int AP; // 어택 포인트
