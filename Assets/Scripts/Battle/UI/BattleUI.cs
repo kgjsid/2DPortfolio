@@ -29,7 +29,7 @@ public class BattleUI : MonoBehaviour
     public void SetBattleUI(Pokemon pokemon)
     {
         levelText.text = pokemon.Level.ToString();
-        nameText.text = pokemon.name;
+        nameText.text = pokemon.PokemonData.name;
     }
 
     public void SethpSlider()

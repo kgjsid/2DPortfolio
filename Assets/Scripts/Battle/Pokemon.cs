@@ -85,25 +85,29 @@ public class Pokemon : MonoBehaviour, IDamagable
 
         return currentAction;
     }
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
-        hp -= damage;
-        if (hp <= 0)
+        curHp -= damage;
+        if (curHp <= 0)
         {
-            hp = 0;
-            OnDied?.Invoke();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     // ½ÇÇà
-    public void Execute()
+    public int Execute()
     {
         if(controlType == 1)
         {
             currentAction = PossessedAction[Random.Range(0, PossessedAction.Count)];
         }
         BattleManager.Battle.DisplayLog($"{Name} used {currentAction.name}!");
-        currentAction.Execute(this, enemy);
+        int damage = currentAction.Execute(this, enemy);
         currentAction = null;
+        return damage;
     }
 }

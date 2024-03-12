@@ -15,7 +15,7 @@ public abstract class SkillData : ScriptableObject
     public int curPP;       // 현재 파워 포인트(사용 횟수?)
     public int maxPP;       // 최대 파워 포인트
 
-    public abstract void Execute(Pokemon user, Pokemon enemy); // 스킬들이 반드시 가져야할 실행함수
+    public abstract int Execute(Pokemon user, Pokemon enemy); // 스킬들이 반드시 가져야할 실행함수
 
     public int AttackDamage(Pokemon user, Pokemon enemy)
     {

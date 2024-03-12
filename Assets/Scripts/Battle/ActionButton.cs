@@ -19,6 +19,7 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         button = GetComponent<Button>();
         text.text = "--";
         button.interactable = false;
+        text.color = Color.black;
     }
 
     // 버튼 세팅함수
