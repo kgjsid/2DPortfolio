@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Pokemon : MonoBehaviour, IDamagable
 {
-    // TODO.
-    // 코드 뒤엎기...
-    // 기능은 완성되어 있으니 계산 식 수정 및 스크립터블로 교체해야 함
     [SerializeField] PokemonData data;      // 포켓몬 데이터
     [SerializeField] ActionButton[] buttons;
 
@@ -23,12 +21,17 @@ public class Pokemon : MonoBehaviour, IDamagable
     [SerializeField] int specialDefence;  // 포켓몬 특수방어력
     [SerializeField] int speed;           // 포켓몬 스피드
 
+    [SerializeField] int curHp;           // 포켓몬 현재 체력
+
     [SerializeField] Pokemon enemy;                      // 상대방에 대한 정보
     [SerializeField] SkillData currentAction;            // 현재 선택한 액션
     [SerializeField] SpriteRenderer sprite;
 
+    public UnityEvent OnDied;
+
     // 프로퍼티...
     public int Hp { get => hp; set => hp = value; }
+    public int CurHp { get => curHp; set => curHp = value; }
     public int Speed { get => speed; set => speed = value; }
     public int Damage { get => damage; set => damage = value; }
     public int SpecialDamage { get => specialDamage; set => specialDamage = value; }
@@ -85,10 +88,10 @@ public class Pokemon : MonoBehaviour, IDamagable
     public void TakeDamage(int damage)
     {
         hp -= damage;
-        Debug.Log($"{hp}의 체력 남음");
         if (hp <= 0)
         {
-            Destroy(this.gameObject);
+            hp = 0;
+            OnDied?.Invoke();
         }
     }
 

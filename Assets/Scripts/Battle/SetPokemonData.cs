@@ -12,12 +12,15 @@ public class SetPokemonData : MonoBehaviour
     {
         this.pokemon = pokemon;
         pokemon.PokemonData = data;
+        SettingData();
     }
+    // 포켓몬 장착
     public void SetPokemon(Pokemon pokemon)
     {
         this.pokemon = pokemon;
+        SettingData();
     }
-
+    // 실제 데이터 넣어주기
     public void SettingData()
     {
         SettingHpData();

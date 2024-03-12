@@ -13,10 +13,10 @@ public class PokemonDataUI : PopUpUI
         {
             buttons[i].gameObject.SetActive(false);
         }
-        for(int i = 0; i < Manager.Game.pokemons.Count; i++)
+        for(int i = 0; i < Manager.Game.curCount; i++)
         {
             buttons[i].gameObject.SetActive(true);
-            set.SetPokemon(Manager.Game.pokemons[i], Manager.Game.pokemonDatas[i]);
+            set.SetPokemon(Manager.Game.pokemons[i], Manager.Game.pokemons[i].PokemonData);
             set.SettingData();
             buttons[i].SetData(Manager.Game.pokemons[i]);
         }

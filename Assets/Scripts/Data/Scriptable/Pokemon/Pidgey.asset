@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ec29394c8f18a348887d004093fa669, type: 3}
-  m_Name: Charmander
+  m_Name: Pidgey
   m_EditorClassIdentifier: 
-  name: Charmander
-  type: fire
-  sprite: {fileID: -1620456946, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
-  iconImage1: {fileID: 1750604182, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
-  iconImage2: {fileID: 752972409, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
-  H: 39
-  AP: 52
-  AD: 43
-  SP: 60
-  SD: 50
-  S: 65
+  name: Pidgey
+  type: Fly
+  sprite: {fileID: 470723867, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  iconImage1: {fileID: -767561648, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  iconImage2: {fileID: 750066784, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  H: 40
+  AP: 45
+  AD: 40
+  SP: 35
+  SD: 35
+  S: 56
   possessedAction:
   - {fileID: 11400000, guid: a2a1cfd19132a294993dd48816531a99, type: 2}

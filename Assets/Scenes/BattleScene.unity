@@ -241,9 +241,25 @@ MonoBehaviour:
   specialDamage: 0
   specialDefence: 0
   speed: 0
+  curHp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 153313790}
+  OnDied:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 592372370}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: EndBattle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &327570278 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4750142202902317857, guid: 8353ddccf6e8e1a4a91e148acd1ddd3d, type: 3}
@@ -1363,9 +1379,25 @@ MonoBehaviour:
   specialDamage: 0
   specialDefence: 0
   speed: 0
+  curHp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 1635484291}
+  OnDied:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 592372370}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: EndBattle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1655196382 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1767293507693584348, guid: 67c931f91ceb9fb429a301e56038c237, type: 3}

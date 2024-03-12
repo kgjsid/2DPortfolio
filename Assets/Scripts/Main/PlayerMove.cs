@@ -13,12 +13,14 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] LayerMask obstacleLayer;
     [SerializeField] LayerMask transitionLayer;
+    [SerializeField] LayerMask jumpLayer;
 
     Vector2 moveDir;
     Vector2 currentPoint;
     Vector2 nextPoint;
 
     bool isMove;
+    bool isJump;
     bool isTrigger;
 
     public UnityEvent transitionEvent;
@@ -64,6 +66,8 @@ public class PlayerMove : MonoBehaviour
             {
                 FindNextTile(Vector2.down);
             }
+
+            animator.SetBool("isMove", isMove);
         }
     }
 
@@ -76,8 +80,17 @@ public class PlayerMove : MonoBehaviour
 
     private void FindNextTile(Vector2 nextPos)
     {   // 충돌 타겟 검사
-        if(Physics2D.Raycast(transform.position, nextPos, 1f, obstacleLayer))
+        if (Physics2D.Raycast(transform.position, nextPos, 1f, obstacleLayer))
         {
+            return;
+        }
+
+        if (Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer))
+        {
+            // 그거의 뒷 방향에서만 점프가 가능하도록 설정?
+            if (isJump) return;
+
+            //StartCoroutine(JumpRoutine(currentPoint, nextPos));
             return;
         }
 
@@ -87,6 +100,7 @@ public class PlayerMove : MonoBehaviour
         if (gridManager.points.ContainsKey(currentPoint + nextPos))
             nextPoint = gridManager.points[currentPoint + nextPos];
         StartCoroutine(MoveRoutine());
+
     }
 
     IEnumerator MoveRoutine()
@@ -153,4 +167,32 @@ public class PlayerMove : MonoBehaviour
         isTrigger = false;
         
     }
+
+    IEnumerator JumpRoutine(Vector2 currentPoint, Vector2 nextPos)
+    {
+        // 애니메이션 설정
+        // 앞으로 두칸 가기
+        isJump = true;
+        Debug.Log("점프 루틴");
+        Debug.Log($"플레이어 : {gameObject.GetComponent<Collider2D>()}");
+        Debug.Log($"점프타일 : {Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider}");
+        nextPos = currentPoint + nextPos * 2;
+        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider, true);
+        float rate = 0f;
+        isMove = true;
+        while (rate < 1f)
+        {
+            rate += 0.05f;
+            transform.position = Vector2.Lerp(currentPoint, nextPoint, rate);
+
+            yield return new WaitForSeconds(0.01f);
+        }
+        currentPoint = nextPoint;
+
+        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider, false);
+        isMove = false;
+        isJump = false;
+        moveEvent?.Invoke();
+    }
+    // 점프루틴 수정 필요 -> 콜라이더 무시에서 에러 발생
 }

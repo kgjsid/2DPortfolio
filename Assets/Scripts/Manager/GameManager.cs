@@ -5,30 +5,40 @@ public class GameManager : Singleton<GameManager>
 {
     // 플레이어의 포켓몬 관리하기
     public int maxCount = 6;           // 최대 소지 수
-    public int curCount;    // 현재 수
+    public int curCount = 0;    // 현재 수
 
-    public List<PokemonData> pokemonDatas = new List<PokemonData>();  // 포켓몬 데이터
     public List<Pokemon> pokemons = new List<Pokemon>();              // 포켓몬 오브젝트
-    public List<int> pokemonsLevel = new List<int>();                 // 포켓몬 레벨
 
-    public void SetPokemon(PokemonData newPokemon)
+    public SetPokemonData setPokemonData;
+
+    private void Start()
     {
-        if (pokemons.Count == maxCount)
+        for(int i = 0; i < pokemons.Count; i++)
+        {
+            pokemons[i].gameObject.SetActive(false);
+        }
+        curCount = 0;
+    }
+
+    public void SetPokemon(PokemonData newPokemon, int level)
+    {
+        if (curCount == maxCount)
         {
             Debug.Log("최대 소지중!");
             return;
         }
-        curCount++;
+        pokemons[curCount].Level = level;
+        pokemons[curCount].PokemonData = newPokemon;
+        setPokemonData.SetPokemon(pokemons[curCount]);
+        setPokemonData.SettingData();
         pokemons[curCount].gameObject.SetActive(true);
-        pokemonDatas.Add(newPokemon);
+        curCount++;
     }
 
     public Pokemon GetPokemon()
     {
         if (pokemons.Count == 0)
             return null;
-
-        pokemons[0].Level = pokemonsLevel[0];
 
         return pokemons[0];
     }
