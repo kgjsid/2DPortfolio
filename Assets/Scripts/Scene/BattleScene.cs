@@ -14,6 +14,7 @@ public class BattleScene : BaseScene
 
     public override IEnumerator LoadingRoutine()
     {
+        BattleManager.Battle.InBattle();
         yield return null;
     }
 }

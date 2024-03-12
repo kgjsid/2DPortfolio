@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pidgey
   type: Fly
-  sprite: {fileID: 470723867, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  sprite: {fileID: 1790939369, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
+  enemySprite: {fileID: 470723867, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
   iconImage1: {fileID: -767561648, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
   iconImage2: {fileID: 750066784, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
   H: 40

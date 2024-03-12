@@ -25,14 +25,18 @@ public class PlayerMove : MonoBehaviour
 
     public UnityEvent transitionEvent;
     public UnityEvent moveEvent;
-    private void Start()
+
+    public void SetCurrentPos()
     {
-        //tileSizeX = (int)tileMap.cellSize.x;
-        //tileSizeY = (int)tileMap.cellSize.y;
         currentPoint = new Vector2((int)transform.position.x, (int)transform.position.y);
         currentPoint.x += 0.5f;
         currentPoint.y += 0.5f;
         transform.position = currentPoint;
+    }
+
+    public void SetNextPos()
+    {
+        nextPoint = currentPoint;
     }
 
     private void FixedUpdate()
@@ -80,6 +84,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FindNextTile(Vector2 nextPos)
     {   // 충돌 타겟 검사
+        Debug.Log(transform.position);
         if (Physics2D.Raycast(transform.position, nextPos, 1f, obstacleLayer))
         {
             return;

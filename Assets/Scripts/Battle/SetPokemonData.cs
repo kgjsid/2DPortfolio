@@ -31,7 +31,6 @@ public class SetPokemonData : MonoBehaviour
     private void SettingHpData()
     {
         pokemon.Hp = (int)((pokemon.PokemonData.H * 2) * 0.01f * pokemon.Level) + 10 + pokemon.Level;
-        pokemon.CurHp = pokemon.Hp;
     }
 
     private void SettingOtherData()
@@ -44,6 +43,9 @@ public class SetPokemonData : MonoBehaviour
     }
     private void SettingImage()
     {
-        pokemon.Sprite.sprite = pokemon.PokemonData.sprite;
+        if (pokemon.controlType == 0)
+            pokemon.Sprite.sprite = pokemon.PokemonData.sprite;
+        else
+            pokemon.Sprite.sprite = pokemon.PokemonData.enemySprite;
     }
 }

@@ -10,9 +10,15 @@ public class GameManager : Singleton<GameManager>
     public List<Pokemon> pokemons = new List<Pokemon>();              // 포켓몬 오브젝트
 
     public SetPokemonData setPokemonData;
+    public PlayerMove player;
+    public Vector3 curPos;
 
     private void Start()
     {
+        if(player == null)
+        {
+            player = FindObjectOfType<PlayerMove>();
+        }
         for(int i = 0; i < pokemons.Count; i++)
         {
             pokemons[i].gameObject.SetActive(false);
@@ -41,5 +47,15 @@ public class GameManager : Singleton<GameManager>
             return null;
 
         return pokemons[0];
+    }
+
+    public void RecordPos()
+    {
+        curPos = player.gameObject.transform.position;
+    }
+
+    public void UpdatePokemonData(Pokemon pokemon)
+    {   // 포켓몬 데이터 설정
+        setPokemonData.SetPokemon(pokemon);
     }
 }

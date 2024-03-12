@@ -9,7 +9,8 @@ public class PokemonData : ScriptableObject
 {
     public string name;         // 포켓몬의 이름
     public string type;         // 포켓몬 타입(풀, 불...)
-    public Sprite sprite;       // 포켓몬 이미지
+    public Sprite sprite;       // 포켓몬 이미지(뒷면)
+    public Sprite enemySprite;  // 적 이미지(앞면)
 
     public Sprite iconImage1;   // 아이콘 이미지
     public Sprite iconImage2;

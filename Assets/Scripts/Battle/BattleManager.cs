@@ -41,17 +41,21 @@ public class BattleManager : MonoBehaviour
         }
     }
     // States.Start 시작
-    private void Start()
+    public void InBattle()
     { 
         states = BattleStates.Start;
         StartCoroutine(SettingBattle());
     }
     IEnumerator SettingBattle()
     {   // 배틀 세팅
+        states = BattleStates.Start;
         actionRank = new Queue<Pokemon>();      // 큐 만들고
         battleLog.gameObject.SetActive(false);  // 로그들은 비활성화
         selectLog.gameObject.SetActive(false);
         skillSlot.gameObject.SetActive(false);
+
+        playerUI.gameObject.SetActive(true);
+        enemyUI.gameObject.SetActive(true);
         SetDatas();                             // 포켓몬 설정
         yield return StartCoroutine(SetUIs());  // UI 띄우기
     }
@@ -120,7 +124,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             states = BattleStates.EnemyTurn;
-            EnemyTurn();
+            yield return EnemyTurn();
         }
     }
     // 플레이어 선택 루틴기다리기
@@ -154,7 +158,7 @@ public class BattleManager : MonoBehaviour
         if (isDead) // 상대방이 죽은 상황
         {
             states = BattleStates.Win;
-            Win();
+            yield return Win();
         }
         else if(actionRank.Count != 0)
         {
@@ -184,6 +188,7 @@ public class BattleManager : MonoBehaviour
         yield return enemyUI.HpRoutine(enemyPrevHp, enemy.CurHp);
         yield return playerUI.HpRoutine(playerPrevHp, player.CurHp);
 
+
         if (isDead) // 플레이어의 포켓몬이 죽은 상황
         {
             states = BattleStates.Lose;
@@ -202,10 +207,12 @@ public class BattleManager : MonoBehaviour
     }
     // States.EnemyTurn 끝
 
-    private void Win()
+    IEnumerator Win()
     {
         // 승리 효과....
-        DisplayLog($"{enemy.Name} is Fainted");
+        yield return battleLog.DisplayLog($"{enemy.Name} is Fainted");
+        EndBattle();
+        Manager.Scene.LoadScene("FieldScene");
     }
 
     private void Lose()
@@ -217,12 +224,11 @@ public class BattleManager : MonoBehaviour
     public void EndBattle()
     {
         // 한 쪽이 죽었을 때 실행할 메소드
-        if (enemy.CurHp == 0)
-        {
-            DisplayLog($"{enemy.name} is Fainted");
-        }
-
-        Manager.Scene.LoadScene("FieldScene");
+        battleLog.gameObject.SetActive(false);  
+        selectLog.gameObject.SetActive(false);
+        skillSlot.gameObject.SetActive(false);
+        playerUI.gameObject.SetActive(false);
+        enemyUI.gameObject.SetActive(false);
     }
 
 }
