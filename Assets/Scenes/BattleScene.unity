@@ -223,6 +223,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3756115403930450468, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: enemyData.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756115403930450468, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: enemyData.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 97359da390ef2b143b631591a937d8d8, type: 2}
+    - target: {fileID: 3756115403930450468, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: enemyData.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: eaa6614ca46752b41822812ea3ffafb5, type: 2}
+    - target: {fileID: 3756115403930450468, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: enemyData.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: d88d1c64347e28d45a55125ac2cd3b9f, type: 2}
+    - target: {fileID: 3756115403930450468, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: enemyData.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 06bb6f4676c66844aa41274587cf1e88, type: 2}
     - target: {fileID: 8066168382630129906, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -559,6 +579,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   enemy: {fileID: 0}
+  datas: []
+  randomLevel: 0
 --- !u!1 &778124975
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,9 +718,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8170fe29a23284d40b69b1e70a63f898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRender: {fileID: 1141679701}
-  sprite1: {fileID: -1549795578, guid: ae67cf4154bedf74c9c54f3f1b1ce6ac, type: 3}
-  sprite2: {fileID: -15577679, guid: ae67cf4154bedf74c9c54f3f1b1ce6ac, type: 3}
+  tile: {fileID: 0}
+  animatedTile: {fileID: 0}
+  tileBase: {fileID: 0}
+  gridManager: {fileID: 0}
+  player: {fileID: 0}
 --- !u!212 &1141679701
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -806,6 +830,7 @@ MonoBehaviour:
   specialDefence: 0
   speed: 0
   curHp: 0
+  curExp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 0}

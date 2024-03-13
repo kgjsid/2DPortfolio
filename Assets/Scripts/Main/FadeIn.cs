@@ -14,22 +14,25 @@ public class FadeIn : MonoBehaviour
 
     IEnumerator Fade()
     {
+        Time.timeScale = 0f;
         float time = 0f;
 
         while(time < 0.5f)
         {
-            time += Time.deltaTime * 3;
+            time += Time.unscaledDeltaTime * 12;
             fade.color = new Color(0, 0, 0, time * 2);
 
-            yield return null;
+            yield return new WaitForSecondsRealtime(0.1f);
         }
+
+        Time.timeScale = 1f;
 
         while(time > 0f)
         {
-            time -= Time.deltaTime;
+            time -= Time.unscaledDeltaTime * 6;
             fade.color = new Color(0, 0, 0, time * 2);
 
-            yield return null;
+            yield return new WaitForSecondsRealtime(0.1f);
         }
     }
 }

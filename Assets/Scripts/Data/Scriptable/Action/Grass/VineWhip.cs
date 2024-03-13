@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "VineWhip", menuName = ("Data/VineWhip"))]
 public class VineWhip : SkillData
 {
-    public override int Execute(Pokemon user, Pokemon enemy)
+    public override float Execute(Pokemon user, Pokemon enemy)
     {
-        int damage = AttackDamage(user, enemy);
+        float damage = AttackDamage(user, enemy);
         return damage;
-        user.Enemy.TakeDamage(damage);
+        // user.Enemy.TakeDamage(damage);
     }
 }

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Tackle", menuName = "Data/Tackle")]
-public class Tackle : SkillData
+[CreateAssetMenu(fileName = "Ember", menuName = ("Data/Ember"))]
+public class Ember : SkillData
 {
     public override float Execute(Pokemon user, Pokemon enemy)
     {
         float damage = AttackDamage(user, enemy);
         return damage;
+        // user.Enemy.TakeDamage(damage);
     }
 }

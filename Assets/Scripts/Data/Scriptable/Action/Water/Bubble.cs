@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Bubble", menuName = "Data/Bubble")]
 public class Bubble : SkillData
 {
-    public override int Execute(Pokemon user, Pokemon enemy)
+    public override float Execute(Pokemon user, Pokemon enemy)
     {
-        int damage = SpecialDamage(user, enemy);
+        float damage = SpecialDamage(user, enemy);
         return damage;
-        user.Enemy.TakeDamage(damage);
+        // user.Enemy.TakeDamage(damage);
     }
 }

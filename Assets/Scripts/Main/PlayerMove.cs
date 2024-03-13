@@ -84,18 +84,20 @@ public class PlayerMove : MonoBehaviour
 
     private void FindNextTile(Vector2 nextPos)
     {   // 충돌 타겟 검사
-        Debug.Log(transform.position);
+        if (isJump)
+            return;
         if (Physics2D.Raycast(transform.position, nextPos, 1f, obstacleLayer))
         {
             return;
         }
 
-        if (Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer))
+        if (Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider != null)
         {
             // 그거의 뒷 방향에서만 점프가 가능하도록 설정?
-            if (isJump) return;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer);
 
-            //StartCoroutine(JumpRoutine(currentPoint, nextPos));
+            if (hit.collider.gameObject.transform.position.y < transform.position.y)
+                StartCoroutine(JumpRoutine(currentPoint, nextPos));
             return;
         }
 
@@ -178,23 +180,23 @@ public class PlayerMove : MonoBehaviour
         // 애니메이션 설정
         // 앞으로 두칸 가기
         isJump = true;
-        Debug.Log("점프 루틴");
-        Debug.Log($"플레이어 : {gameObject.GetComponent<Collider2D>()}");
-        Debug.Log($"점프타일 : {Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider}");
+        Collider2D myCollider = gameObject.GetComponent<Collider2D>();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer);
+        Collider2D jumpCollider = hit.collider;
         nextPos = currentPoint + nextPos * 2;
-        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider, true);
+        Physics2D.IgnoreCollision(myCollider, jumpCollider, true);
         float rate = 0f;
         isMove = true;
         while (rate < 1f)
         {
             rate += 0.05f;
-            transform.position = Vector2.Lerp(currentPoint, nextPoint, rate);
+            transform.position = Vector2.Lerp(currentPoint, nextPos, rate);
 
             yield return new WaitForSeconds(0.01f);
         }
-        currentPoint = nextPoint;
+        this.currentPoint = nextPos;
 
-        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider, false);
+        Physics2D.IgnoreCollision(myCollider, jumpCollider, false);
         isMove = false;
         isJump = false;
         moveEvent?.Invoke();

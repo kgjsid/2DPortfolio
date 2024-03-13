@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pidgey
   m_EditorClassIdentifier: 
   name: Pidgey
-  type: Fly
+  type: 9
   sprite: {fileID: 1790939369, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
   enemySprite: {fileID: 470723867, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
   iconImage1: {fileID: -767561648, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
@@ -26,3 +26,4 @@ MonoBehaviour:
   S: 56
   possessedAction:
   - {fileID: 11400000, guid: a2a1cfd19132a294993dd48816531a99, type: 2}
+  - {fileID: 11400000, guid: 9f0a4b465096f12448e75944943d807a, type: 2}

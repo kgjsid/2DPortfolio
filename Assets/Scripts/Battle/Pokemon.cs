@@ -22,12 +22,15 @@ public class Pokemon : MonoBehaviour, IDamagable
     [SerializeField] int speed;           // 포켓몬 스피드
 
     [SerializeField] int curHp;           // 포켓몬 현재 체력
+    [SerializeField] int curExp;          // 포켓몬의 현재 경험치
 
     [SerializeField] Pokemon enemy;                      // 상대방에 대한 정보
     [SerializeField] SkillData currentAction;            // 현재 선택한 액션
     [SerializeField] SpriteRenderer sprite;
 
     public UnityEvent OnDied;
+    private float typeValue;
+    private BattleEffect effective;
 
     // 프로퍼티...
     public int Hp { get => hp; set => hp = value; }
@@ -43,7 +46,8 @@ public class Pokemon : MonoBehaviour, IDamagable
     public List<SkillData> PossessedAction { get => data.possessedAction; }
     public PokemonData PokemonData { get => data; set => data = value; }
     public SpriteRenderer Sprite { get => sprite; }
-    
+    public SkillData CurAction { get => currentAction; }
+    public BattleEffect Effective { get => effective; }
 
     public void SetBattle()
     {
@@ -106,7 +110,21 @@ public class Pokemon : MonoBehaviour, IDamagable
             currentAction = PossessedAction[Random.Range(0, PossessedAction.Count)];
         }
         BattleManager.Battle.DisplayLog($"{Name} used {currentAction.name}!");
-        int damage = currentAction.Execute(this, enemy);
+        float typeValue = currentAction.TypeValue[(int)currentAction.type, (int)enemy.data.type];
+        if(typeValue > 1f)
+        {
+            effective = BattleEffect.HighEffective;
+        }
+        else if(typeValue < 1f)
+        {
+            effective = BattleEffect.LowEffective;
+        }
+        else
+        {
+            effective = BattleEffect.Normal;
+        }
+        int damage = (int)(currentAction.Execute(this, enemy) * typeValue);
+
         currentAction = null;
         return damage;
     }

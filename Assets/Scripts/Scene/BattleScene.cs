@@ -7,6 +7,9 @@ public class BattleScene : BaseScene
     [SerializeField] Pokemon player;
     [SerializeField] Pokemon enemy;
 
+    [SerializeField] PokemonData[] datas;
+    [SerializeField] int randomLevel; 
+
     public void LoadScene()
     {
         Manager.Scene.LoadScene("FieldScene");
@@ -15,6 +18,6 @@ public class BattleScene : BaseScene
     public override IEnumerator LoadingRoutine()
     {
         BattleManager.Battle.InBattle();
-        yield return null;
+        yield return new WaitForSecondsRealtime(0.1f);
     }
 }

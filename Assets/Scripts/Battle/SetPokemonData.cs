@@ -15,11 +15,18 @@ public class SetPokemonData : MonoBehaviour
         SettingData();
     }
     // 포켓몬 장착
+    public void SetPokemon(Pokemon target, Pokemon pokemon)
+    {
+        target = pokemon;
+        this.pokemon = target;
+        SettingData();
+    }
     public void SetPokemon(Pokemon pokemon)
     {
         this.pokemon = pokemon;
         SettingData();
     }
+
     // 실제 데이터 넣어주기
     public void SettingData()
     {
@@ -47,5 +54,11 @@ public class SetPokemonData : MonoBehaviour
             pokemon.Sprite.sprite = pokemon.PokemonData.sprite;
         else
             pokemon.Sprite.sprite = pokemon.PokemonData.enemySprite;
+    }
+
+    public void UpdateDate(Pokemon Target, Pokemon pokemon)
+    {
+        Target.CurHp = pokemon.CurHp;
+        Target.Level = pokemon.Level;
     }
 }

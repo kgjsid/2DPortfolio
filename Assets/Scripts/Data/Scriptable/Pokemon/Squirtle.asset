@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Squirtle
   m_EditorClassIdentifier: 
   name: Squirtle
-  type: water
+  type: 2
   sprite: {fileID: -1549795578, guid: ae67cf4154bedf74c9c54f3f1b1ce6ac, type: 3}
   enemySprite: {fileID: -1235581787, guid: ae67cf4154bedf74c9c54f3f1b1ce6ac, type: 3}
   iconImage1: {fileID: 1845114866, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}

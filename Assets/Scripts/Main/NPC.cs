@@ -7,7 +7,7 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] PokemonData[] pokemonDatas;
     public void Interact(PlayerInteractor player)
     {
-        int level = Random.Range(1, 10);
+        int level = Random.Range(5, 15);
 
         Manager.Game.SetPokemon(pokemonDatas[Random.Range(0, pokemonDatas.Length)] , level);
 

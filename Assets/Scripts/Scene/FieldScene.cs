@@ -7,6 +7,7 @@ public class FieldScene : BaseScene
     [SerializeField] PlayerMove player;
     public void LoadScene()
     {
+        Manager.Game.RecordPos();
         Manager.Scene.LoadScene("BattleScene");
     }
     public override IEnumerator LoadingRoutine()
@@ -16,7 +17,6 @@ public class FieldScene : BaseScene
         player.transform.position = Manager.Game.curPos;
         player.SetCurrentPos();
         player.SetNextPos();
-        Debug.Log($"º¯°æµÈ {player.transform.position}");
-        yield return null;
+        yield return new WaitForSecondsRealtime(0.1f);
     }
 }

@@ -30,10 +30,22 @@ public class BattleUI : MonoBehaviour
     {
         levelText.text = pokemon.Level.ToString();
         nameText.text = pokemon.PokemonData.name;
+        maxHp = pokemon.Hp;
+    }
+
+    public void InitHpSlider(float value)
+    {
+        hpSlider.value = value;
+        SethpSlider();
     }
 
     public void SethpSlider()
     {
+        if(hpSlider.value > 0.5f)
+        {
+            fillImage.color = Color.green;
+        }
+
         if(hpSlider.value < 0.5f)
         {
             fillImage.color = Color.yellow;
@@ -48,7 +60,6 @@ public class BattleUI : MonoBehaviour
     public IEnumerator HpRoutine(int curHp, int targetHp)
     {
         float rate = 0f;
-
         if (curHp == targetHp)
         {
             yield return null;
@@ -57,7 +68,7 @@ public class BattleUI : MonoBehaviour
         {
             while (rate < 1f)
             {
-                rate += 0.1f; 
+                rate += 0.1f;
                 hpSlider.value = Mathf.Lerp(curHp, targetHp, rate) / maxHp;
                 SethpSlider();
                 yield return new WaitForSeconds(0.1f);

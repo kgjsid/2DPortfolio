@@ -23,6 +23,7 @@ public class EnCounter : MonoBehaviour
         {
             return;
         }
+
         battleStart?.Invoke();
         
     }

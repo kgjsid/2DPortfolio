@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum BattleStates { Start, Selecting, PlayerTurn, EnemyTurn, Win, Lose}
-
+public enum BattleEffect { Normal, HighEffective, LowEffective}
 public class BattleManager : MonoBehaviour
 {
     private static BattleManager instance;
@@ -23,6 +24,8 @@ public class BattleManager : MonoBehaviour
 
     Queue<Pokemon> actionRank;          // 큐에 행동을 담아두고, 스피드 순서로 넣으면 꺼낼 땐 먼저 나오니 이용
     [SerializeField] SetPokemonData data;
+
+    [SerializeField] PokemonData[] enemyData;
 
     public BattleStates states;
 
@@ -56,6 +59,8 @@ public class BattleManager : MonoBehaviour
 
         playerUI.gameObject.SetActive(true);
         enemyUI.gameObject.SetActive(true);
+        player.gameObject.SetActive(true);
+        enemy.gameObject.SetActive(true);
         SetDatas();                             // 포켓몬 설정
         yield return StartCoroutine(SetUIs());  // UI 띄우기
     }
@@ -64,7 +69,10 @@ public class BattleManager : MonoBehaviour
         // 데이터 설정 및 상대 오브젝트 설정
         player.Level = Manager.Game.GetPokemon().Level;
         data.SetPokemon(player, Manager.Game.GetPokemon().PokemonData);
-        data.SetPokemon(enemy, Manager.Game.GetPokemon().PokemonData);
+        player.CurHp = Manager.Game.GetPokemon().CurHp;
+        enemy.Level = Random.Range(3, 5);
+        data.SetPokemon(enemy, enemyData[Random.Range(0, enemyData.Length)]);
+        enemy.CurHp = enemy.Hp;
         player.Enemy = enemy;
         enemy.Enemy = player;
     }
@@ -72,7 +80,8 @@ public class BattleManager : MonoBehaviour
     {
         playerUI.SetBattleUI(player);           // 배틀 UI설정(체력바, 이름, 레벨)
         enemyUI.SetBattleUI(enemy);
-
+        playerUI.InitHpSlider(player.CurHp / (float)player.Hp);
+        enemyUI.InitHpSlider(enemy.CurHp / (float)enemy.Hp);
         battleLog.gameObject.SetActive(true);   // 배틀 로그 띄워서
         yield return battleLog.DisplayLog($"a wile {enemy.Name} appeared!"); // a wile 적 등장
         selectLog.gameObject.SetActive(true);   // 끝나면 셀렉트 로고 띄우기
@@ -152,6 +161,14 @@ public class BattleManager : MonoBehaviour
         bool isDead = nextAction.Enemy.TakeDamage(damage);
 
         yield return new WaitForSeconds(2.5f);
+        if (nextAction.Effective == BattleEffect.HighEffective)
+        {
+            yield return battleLog.DisplayLog($"It's super effective!");
+        }
+        else if (nextAction.Effective == BattleEffect.LowEffective)
+        {
+            yield return battleLog.DisplayLog($"It's not very effective...");
+        }
         yield return enemyUI.HpRoutine(enemyPrevHp, enemy.CurHp);
         yield return playerUI.HpRoutine(playerPrevHp, player.CurHp);
 
@@ -185,6 +202,14 @@ public class BattleManager : MonoBehaviour
         bool isDead = nextAction.Enemy.TakeDamage(damage);
 
         yield return new WaitForSeconds(2.5f);
+        if (nextAction.Effective == BattleEffect.HighEffective)
+        {
+            yield return battleLog.DisplayLog($"It's super effective!");
+        }
+        else if (nextAction.Effective == BattleEffect.LowEffective)
+        {
+            yield return battleLog.DisplayLog($"It's not very effective...");
+        }
         yield return enemyUI.HpRoutine(enemyPrevHp, enemy.CurHp);
         yield return playerUI.HpRoutine(playerPrevHp, player.CurHp);
 
@@ -229,6 +254,12 @@ public class BattleManager : MonoBehaviour
         skillSlot.gameObject.SetActive(false);
         playerUI.gameObject.SetActive(false);
         enemyUI.gameObject.SetActive(false);
+        player.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);
+
+        // + 현재 포켓몬의 정보를 게임 매니저가 가지고 가야함
+        Manager.Game.UpdatePokemonData(player);
+
     }
 
 }

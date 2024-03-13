@@ -15,7 +15,7 @@ MonoBehaviour:
   user: {fileID: 0}
   enemy: {fileID: 0}
   name: VineWhip
-  type: grass
+  type: 3
   power: 45
   hitRate: 100
   curPP: 25

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Charmander
   m_EditorClassIdentifier: 
   name: Charmander
-  type: fire
+  type: 1
   sprite: {fileID: -921828493, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
   enemySprite: {fileID: -1620456946, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
   iconImage1: {fileID: 1750604182, guid: 7737f3b73f52fab4b8db74a5aaabf902, type: 3}
@@ -26,3 +26,4 @@ MonoBehaviour:
   S: 65
   possessedAction:
   - {fileID: 11400000, guid: a2a1cfd19132a294993dd48816531a99, type: 2}
+  - {fileID: 11400000, guid: 6c8d6bf0c85813a4eb577ba089533f40, type: 2}
