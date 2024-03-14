@@ -10,22 +10,23 @@ public class BattleUI : MonoBehaviour
     // 스킬 계수 + 사용 횟수 적용하여 UI 완료하고, 배틀씬 마무리하기 
     [SerializeField] TMP_Text levelText;
     [SerializeField] TMP_Text nameText;
-    [SerializeField] Slider hpSlider;
-    [SerializeField] Image fillImage;
+    [SerializeField] Image hpSlider;
+    [SerializeField] Image expImage;
 
     [SerializeField] Pokemon pokemon;
+
+    [SerializeField] Sprite red;
+    [SerializeField] Sprite yellow;
+    [SerializeField] Sprite green;
+
     int maxHp;
 
     private void Start()
     {
         maxHp = pokemon.Hp;
-        hpSlider.value = 1f;
+        hpSlider.rectTransform.localScale = Vector3.one;
     }
-    /*
-    public void SetUIs()
-    {
-    }
-    */
+
     public void SetBattleUI(Pokemon pokemon)
     {
         levelText.text = pokemon.Level.ToString();
@@ -35,31 +36,44 @@ public class BattleUI : MonoBehaviour
 
     public void InitHpSlider(float value)
     {
-        hpSlider.value = value;
+        hpSlider.rectTransform.localScale = new Vector3(value, 1f, 1f);
         SethpSlider();
+    }
+
+    public void InitExpSlider(float value)
+    {
+        if (value <= 0f)
+            value = 0f;
+        else if (value >= 1f)
+            value = 1f;
+        expImage.rectTransform.localScale = new Vector3(value, 1f, 1f);
     }
 
     public void SethpSlider()
     {
-        if(hpSlider.value > 0.5f)
+        if(hpSlider.rectTransform.localScale.x > 0.5f)
         {
-            fillImage.color = Color.green;
+            hpSlider.sprite = green;
         }
 
-        if(hpSlider.value < 0.5f)
+        if(hpSlider.rectTransform.localScale.x < 0.5f)
         {
-            fillImage.color = Color.yellow;
+            hpSlider.sprite = yellow;
         }
 
-        if(hpSlider.value < 0.2f)
+        if(hpSlider.rectTransform.localScale.x < 0.2f)
         {
-            fillImage.color = Color.red;
+            hpSlider.sprite = red;
         }
     }
 
     public IEnumerator HpRoutine(int curHp, int targetHp)
     {
         float rate = 0f;
+        if(targetHp < 0)
+        {
+            targetHp = 0;
+        }
         if (curHp == targetHp)
         {
             yield return null;
@@ -69,7 +83,30 @@ public class BattleUI : MonoBehaviour
             while (rate < 1f)
             {
                 rate += 0.1f;
-                hpSlider.value = Mathf.Lerp(curHp, targetHp, rate) / maxHp;
+                hpSlider.rectTransform.localScale = new Vector3(Mathf.Lerp(curHp, targetHp, rate) / maxHp, 1f, 1f);
+                SethpSlider();
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
+
+    public IEnumerator ExpRoutine(float curExp, float targetExp)
+    {
+        float rate = 0f;
+
+        if (curExp > 1f)
+            curExp = 1f;
+
+        if (curExp == targetExp)
+        {
+            yield return null;
+        }
+        else
+        {
+            while (rate < 1f)
+            {
+                rate += 0.1f;
+                expImage.rectTransform.localScale = new Vector3(Mathf.Lerp(curExp, targetExp, rate), 1f, 1f);
                 SethpSlider();
                 yield return new WaitForSeconds(0.1f);
             }

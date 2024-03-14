@@ -24,6 +24,10 @@ MonoBehaviour:
   SP: 65
   SD: 65
   S: 45
-  possessedAction:
-  - {fileID: 11400000, guid: a2a1cfd19132a294993dd48816531a99, type: 2}
-  - {fileID: 11400000, guid: efc59a8b95a47dd41803d7d1204b782c, type: 2}
+  possessedAction: []
+  skillData:
+  - level: 1
+    skill: {fileID: 11400000, guid: a2a1cfd19132a294993dd48816531a99, type: 2}
+  - level: 4
+    skill: {fileID: 11400000, guid: efc59a8b95a47dd41803d7d1204b782c, type: 2}
+  nextPokemon: {fileID: 0}

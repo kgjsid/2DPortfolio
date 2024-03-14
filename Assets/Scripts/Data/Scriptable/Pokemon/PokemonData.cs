@@ -28,4 +28,19 @@ public class PokemonData : ScriptableObject
     // 개체값과 노력치에 대한 부분은 찾을 수 없고, 숨겨진 요소...
 
     public List<SkillData> possessedAction;    // 소지한 액션들, 스킬들
+
+    // 이제는 포켓몬이 스킬을 가져야 할 때
+    public GetSkillData[] skillData;
+
+    public PokemonData nextPokemon;
+
+    [Serializable]
+    public struct GetSkillData
+    {
+        // 획득 레벨과 스킬?
+        // 레벨이 되면 스킬을 얻는다??
+        public int level;
+        public SkillData skill;
+    }
+
 }

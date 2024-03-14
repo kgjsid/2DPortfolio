@@ -7,7 +7,7 @@ public class Tackle : SkillData
 {
     public override float Execute(Pokemon user, Pokemon enemy)
     {
-        float damage = AttackDamage(user, enemy);
+        float damage = AttackDamage(user, enemy) * EqualAttack(user);
         return damage;
     }
 }

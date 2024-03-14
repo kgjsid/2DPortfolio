@@ -3328,9 +3328,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 358.7904, y: 6.7444}
+  m_AnchoredPosition: {x: 166.99988, y: 6.744385}
   m_SizeDelta: {x: 383.581, y: 15.616}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8583209009588535134
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3478,9 +3478,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 358.7904, y: 6.7444}
+  m_AnchoredPosition: {x: 166.99988, y: 6.744385}
   m_SizeDelta: {x: 383.581, y: 15.616}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2133611101941288305
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3896,9 +3896,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: -88}
+  m_AnchoredPosition: {x: -91.79053, y: -88}
   m_SizeDelta: {x: 383.581, y: 15.616}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4622728291993774902
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3971,9 +3971,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 358.7904, y: 6.7444}
+  m_AnchoredPosition: {x: 166.99988, y: 6.744385}
   m_SizeDelta: {x: 383.581, y: 15.616}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &9096042496073587702
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4180,9 +4180,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 358.7904, y: 6.7444}
+  m_AnchoredPosition: {x: 166.99988, y: 6.744385}
   m_SizeDelta: {x: 383.581, y: 15.616}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4242513541479509279
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5477,6 +5477,7 @@ GameObject:
   - component: {fileID: 3081292626792335317}
   - component: {fileID: 2602918124978617908}
   - component: {fileID: 6279020938584598296}
+  - component: {fileID: 3173084411082743802}
   m_Layer: 5
   m_Name: CancelButton
   m_TagString: Untagged
@@ -5584,7 +5585,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2602918124978617908}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3173084411082743802}
+        m_TargetAssemblyTypeName: CancelButton, Assembly-CSharp
+        m_MethodName: ClickCancelButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3173084411082743802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979338329765169661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea925db1b7698284b97e49d494518545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8003513748346352958
 GameObject:
   m_ObjectHideFlags: 0

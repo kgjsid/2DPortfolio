@@ -10,11 +10,14 @@ public class SetPokemonData : MonoBehaviour
 
     public void SetPokemon(Pokemon pokemon, PokemonData data)
     {
+        // 사용시 curExp만 문제 발생 수정이 필요함
         this.pokemon = pokemon;
         pokemon.PokemonData = data;
+        this.pokemon.GetSkills();
         SettingData();
     }
-    // 포켓몬 장착
+    // 포켓몬 장착(플레이어, 매니저의 포켓몬 인벤에서 꺼내온 포켓몬)
+    // 사용시 참조가 바뀌어버림
     public void SetPokemon(Pokemon target, Pokemon pokemon)
     {
         target = pokemon;
@@ -58,7 +61,9 @@ public class SetPokemonData : MonoBehaviour
 
     public void UpdateDate(Pokemon Target, Pokemon pokemon)
     {
+        // 배틀 후 데이터 유지
         Target.CurHp = pokemon.CurHp;
         Target.Level = pokemon.Level;
+        Target.CurExp = pokemon.CurExp;
     }
 }

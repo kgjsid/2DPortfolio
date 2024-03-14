@@ -33,6 +33,8 @@ public class GameManager : Singleton<GameManager>
         pokemons[curCount].PokemonData = newPokemon;
         setPokemonData.SetPokemon(pokemons[curCount]);
         setPokemonData.SettingData();
+        pokemons[curCount].GetSkills();
+        pokemons[curCount].CurExp = level * level * level;
         pokemons[curCount].CurHp = pokemons[curCount].Hp;
         pokemons[curCount].gameObject.SetActive(true);
         curCount++;

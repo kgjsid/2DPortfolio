@@ -14,6 +14,7 @@ public abstract class SkillData : ScriptableObject
     public int hitRate;     // 적중률
     public int curPP;       // 현재 파워 포인트(사용 횟수?)
     public int maxPP;       // 최대 파워 포인트
+    public abstract float Execute(Pokemon user, Pokemon enemy); // 스킬들이 반드시 가져야할 실행함수
 
     // ex) 0,1 -> 공격은 노말(0), 방어는 불꽃(1)
     // ex) 0,3 -> 공격은 노말(0), 방어는 풀(4)
@@ -37,7 +38,10 @@ public abstract class SkillData : ScriptableObject
     }
     ;
 
-    public abstract float Execute(Pokemon user, Pokemon enemy); // 스킬들이 반드시 가져야할 실행함수
+    public float EqualAttack(Pokemon user)
+    {
+        return user.PokemonData.type == type ? 1.5f : 1f; 
+    }
 
     public float AttackDamage(Pokemon user, Pokemon enemy)
     {

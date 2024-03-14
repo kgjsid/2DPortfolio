@@ -41,9 +41,10 @@ public class PokemonButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         nameText.text = pokemon.Name;
         nameLevel.text = pokemon.Level.ToString();
-        curHpText.text = pokemon.Hp.ToString();
+        curHpText.text = pokemon.CurHp.ToString();
         maxHpText.text = pokemon.Hp.ToString();
         imageRoutine = StartCoroutine(ChangeImage(pokemon));
+        hpImage.rectTransform.localScale = new Vector3((float)pokemon.CurHp / pokemon.Hp, 1, 1);
     }
 
     IEnumerator ChangeImage(Pokemon pokemon)

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -23,10 +25,12 @@ public class Pokemon : MonoBehaviour, IDamagable
 
     [SerializeField] int curHp;           // 포켓몬 현재 체력
     [SerializeField] int curExp;          // 포켓몬의 현재 경험치
+    [SerializeField] int nextExp;         // 다음까지의 경험치??
 
     [SerializeField] Pokemon enemy;                      // 상대방에 대한 정보
     [SerializeField] SkillData currentAction;            // 현재 선택한 액션
     [SerializeField] SpriteRenderer sprite;
+    [SerializeField] List<SkillData> currentSkills;      // 현재 스킬들
 
     public UnityEvent OnDied;
     private float typeValue;
@@ -48,27 +52,32 @@ public class Pokemon : MonoBehaviour, IDamagable
     public SpriteRenderer Sprite { get => sprite; }
     public SkillData CurAction { get => currentAction; }
     public BattleEffect Effective { get => effective; }
+    public int CurExp { get => curExp; set => curExp = value; }
+    public int NextExp { get => nextExp; }
 
     public void SetBattle()
     {
         SetButtons();
+        nextExp = (level + 1) * (level + 1) * (level + 1);
     }
     private void SetButtons()
     {   // 버튼에 대한 초기 설정(스킬 세팅하기)
         if (controlType == 1)
         {
             // 야생동물은 버튼에 연결할 필요 없음 스킬 세팅만
+            Debug.Log($"wild skillCount : {currentSkills.Count}");
+            currentSkills.Clear();
         }
         else
         {
             for (int i = 0; i < buttons.Length; i++)
             {
                 buttons[i].SetOwner(this); // 버튼 사용 주체?
-                if (PossessedAction.Count <= i)
+                if (currentSkills.Count <= i)
                 {
                     continue;
                 }
-                buttons[i].SetButton(PossessedAction[i]); // 버튼에 스킬 세팅하기
+                buttons[i].SetButton(currentSkills[i]); // 버튼에 스킬 세팅하기
             }
         }
     }
@@ -107,7 +116,7 @@ public class Pokemon : MonoBehaviour, IDamagable
     {
         if(controlType == 1)
         {
-            currentAction = PossessedAction[Random.Range(0, PossessedAction.Count)];
+            currentAction = currentSkills[Random.Range(0, currentSkills.Count)];
         }
         BattleManager.Battle.DisplayLog($"{Name} used {currentAction.name}!");
         float typeValue = currentAction.TypeValue[(int)currentAction.type, (int)enemy.data.type];
@@ -126,6 +135,41 @@ public class Pokemon : MonoBehaviour, IDamagable
         int damage = (int)(currentAction.Execute(this, enemy) * typeValue);
 
         currentAction = null;
-        return damage;
+        return damage > 1 ? damage : 1;
+    }
+
+    public bool GetExp(int exp)
+    {
+        curExp += exp;
+
+        if (curExp >= (level + 1) * (level + 1) * (level + 1))
+            return true;
+        else
+            return false;
+    }
+
+    public void LevelUp()
+    {
+        // 레벨업 루틴
+        // 내 스킬데이터 획득하고, 진화하고??
+        level++;
+        GetSkills();
+    }
+
+    public void GetSkills()
+    {
+        for (int i = 0; i < data.skillData.Length; i++)
+        {
+            if (currentSkills.Count == 4)
+                break; // 수정 필요. 4개 이상이면 기술 선택해서 획득해야 함
+
+            if (currentSkills.Contains(data.skillData[i].skill))
+                continue;
+
+            if (level >= data.skillData[i].level)
+            {
+                currentSkills.Add(data.skillData[i].skill);
+            }
+        }
     }
 }

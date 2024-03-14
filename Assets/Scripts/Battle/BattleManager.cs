@@ -70,6 +70,8 @@ public class BattleManager : MonoBehaviour
         player.Level = Manager.Game.GetPokemon().Level;
         data.SetPokemon(player, Manager.Game.GetPokemon().PokemonData);
         player.CurHp = Manager.Game.GetPokemon().CurHp;
+        player.CurExp = Manager.Game.GetPokemon().CurExp;
+        player.GetSkills();
         enemy.Level = Random.Range(3, 5);
         data.SetPokemon(enemy, enemyData[Random.Range(0, enemyData.Length)]);
         enemy.CurHp = enemy.Hp;
@@ -82,9 +84,12 @@ public class BattleManager : MonoBehaviour
         enemyUI.SetBattleUI(enemy);
         playerUI.InitHpSlider(player.CurHp / (float)player.Hp);
         enemyUI.InitHpSlider(enemy.CurHp / (float)enemy.Hp);
+        int temp = player.Level * player.Level * player.Level;
+        playerUI.InitExpSlider((player.CurExp - temp) / ((float)player.NextExp - temp));
         battleLog.gameObject.SetActive(true);   // 배틀 로그 띄워서
         yield return battleLog.DisplayLog($"a wile {enemy.Name} appeared!"); // a wile 적 등장
         selectLog.gameObject.SetActive(true);   // 끝나면 셀렉트 로고 띄우기
+        Debug.Log(player.Level);
     }
     public void DisplayLog(string text) // 로그 천천히 띄우기
     {
@@ -235,7 +240,23 @@ public class BattleManager : MonoBehaviour
     IEnumerator Win()
     {
         // 승리 효과....
+        // 64는 잡은 포켓몬마다 다른 수율?? -> 일단 평균정도 사용
+        int getExp = (int)(200 * enemy.Level / 7);
+
         yield return battleLog.DisplayLog($"{enemy.Name} is Fainted");
+        yield return battleLog.DisplayLog($"{player.Name} gained {getExp} EXP. Points!");
+
+        int temp = (player.Level * player.Level * player.Level);
+        yield return playerUI.ExpRoutine((player.CurExp - temp) / ((float)player.NextExp - temp), (player.CurExp + getExp - temp) / ((float)player.NextExp - temp));
+        bool isLevelUp = player.GetExp(getExp);
+        if(isLevelUp)
+        {
+            player.LevelUp();
+            playerUI.InitExpSlider(0f);
+            yield return battleLog.DisplayLog($"{player.Name} grew to LV. {player.Level}!");
+
+        }
+
         EndBattle();
         Manager.Scene.LoadScene("FieldScene");
     }
@@ -244,6 +265,7 @@ public class BattleManager : MonoBehaviour
     {
         // 패배 효과...
         DisplayLog($"My {player.Name} is Fainted");
+        // 다음 포켓몬으로 교체??
     }
 
     public void EndBattle()
@@ -259,7 +281,6 @@ public class BattleManager : MonoBehaviour
 
         // + 현재 포켓몬의 정보를 게임 매니저가 가지고 가야함
         Manager.Game.UpdatePokemonData(player);
-
     }
 
 }
