@@ -13,18 +13,16 @@ public class SkillEffectAnimation : MonoBehaviour
         skillName.Add(name);
     }
 
-    public void UseEffect(string name)
+    public bool UseEffect(string name)
     {
         if(skillName.Contains(name))
         {
             animator.Play($"{name}");
             StartCoroutine(nonState());
+            return true;
         }
-        else
-        {
-            // 노말한 애니메이션 재생할 수 있도록 설정
-            //animator.Play("");
-        }
+
+        return false;
     }
     IEnumerator nonState()
     {

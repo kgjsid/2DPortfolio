@@ -249,9 +249,11 @@ public class BattleManager : MonoBehaviour
         int getExp = (int)(200 * enemy.Level / 7);
 
         yield return battleLog.DisplayLog($"{enemy.Name} is Fainted");
+        enemy.Die();
         yield return battleLog.DisplayLog($"{player.Name} gained {getExp} EXP. Points!");
 
         int temp = (player.Level * player.Level * player.Level);
+
         yield return playerUI.ExpRoutine((player.CurExp - temp) / ((float)player.NextExp - temp), (player.CurExp + getExp - temp) / ((float)player.NextExp - temp));
         bool isLevelUp = player.GetExp(getExp);
         if(isLevelUp)
@@ -275,6 +277,7 @@ public class BattleManager : MonoBehaviour
     {
         // 패배 효과...
         DisplayLog($"My {player.Name} is Fainted");
+        player.Die();
         // 다음 포켓몬으로 교체??
     }
 

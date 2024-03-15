@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 671611182940327840}
   - component: {fileID: 2571992444378566417}
   - component: {fileID: 6174937352854337111}
+  - component: {fileID: 544872649833903435}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -89,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 1794460350491442243}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.3062763, y: 1.5999999, z: 0}
+  m_LocalPosition: {x: 4.306276, y: 1.5999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -178,6 +179,7 @@ MonoBehaviour:
   sprite: {fileID: 2571992444378566417}
   currentSkills: []
   effect: {fileID: 8544653016295266572}
+  animator: {fileID: 544872649833903435}
   OnDied:
     m_PersistentCalls:
       m_Calls:
@@ -193,6 +195,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &544872649833903435
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794460350491442243}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c035c1bfec799a64fabaf292ae7f381e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1935103909834547085
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +626,7 @@ GameObject:
   - component: {fileID: 1860173233314910878}
   - component: {fileID: 6953402068773529199}
   - component: {fileID: 6753080414317904849}
+  - component: {fileID: 4338290133339554175}
   m_Layer: 0
   m_Name: PlayerPokemon
   m_TagString: Untagged
@@ -716,6 +740,7 @@ MonoBehaviour:
   sprite: {fileID: 6953402068773529199}
   currentSkills: []
   effect: {fileID: 3007971571650062254}
+  animator: {fileID: 4338290133339554175}
   OnDied:
     m_PersistentCalls:
       m_Calls:
@@ -731,6 +756,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &4338290133339554175
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003387105723996247}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8f93ede0ccd8f2c4eac65d86bba6478e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3105616877100700570
 GameObject:
   m_ObjectHideFlags: 0

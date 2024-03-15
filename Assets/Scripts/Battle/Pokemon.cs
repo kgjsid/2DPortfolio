@@ -32,6 +32,7 @@ public class Pokemon : MonoBehaviour, IDamagable
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] List<SkillData> currentSkills;      // 현재 스킬들
     [SerializeField] SkillEffectAnimation effect;
+    [SerializeField] Animator animator;
 
     public UnityEvent OnDied;
     private float typeValue;
@@ -56,16 +57,24 @@ public class Pokemon : MonoBehaviour, IDamagable
     public int CurExp { get => curExp; set => curExp = value; }
     public int NextExp { get => nextExp; set => nextExp = value; }
 
+    private void OnEnable()
+    {
+        if(controlType == 1)
+        {
+            animator.Play("Idle");
+        }
+    }
+
     public void SetBattle()
     {
         SetButtons();
+        nextExp = (level + 1) * (level + 1) * (level + 1);
     }
     private void SetButtons()
     {   // 버튼에 대한 초기 설정(스킬 세팅하기)
         if (controlType == 1)
         {
             // 야생동물은 버튼에 연결할 필요 없음 스킬 세팅만
-            Debug.Log($"wild skillCount : {currentSkills.Count}");
             currentSkills.Clear();
         }
         else
@@ -102,6 +111,7 @@ public class Pokemon : MonoBehaviour, IDamagable
     public bool TakeDamage(int damage)
     {
         curHp -= damage;
+        animator.Play("Hit");
         if (curHp <= 0)
         {
             return true;
@@ -134,7 +144,10 @@ public class Pokemon : MonoBehaviour, IDamagable
             effective = BattleEffect.Normal;
         }
         int damage = (int)(currentAction.Execute(this, enemy) * typeValue);
-        effect.UseEffect($"{currentAction.name}");
+        bool isAnim = effect.UseEffect($"{currentAction.name}");
+        if (isAnim) animator.Play("Attack");
+        if (controlType == 1)
+            animator.Play("Attack");
         currentAction = null;
         return damage > 1 ? damage : 1;
     }
@@ -174,5 +187,10 @@ public class Pokemon : MonoBehaviour, IDamagable
             }
         }
         return false;
+    }
+
+    public void Die()
+    {
+        animator.Play("Faint");
     }
 }
