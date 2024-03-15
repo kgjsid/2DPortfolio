@@ -22,6 +22,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] PopUpUI selectLog;        // 행동 선택창(싸울지, 도망칠지)
     [SerializeField] PopUpUI skillSlot;        // 스킬 선택창(버튼을 눌러 해당 스킬을 사용)
 
+    [Header("Animation")]
+    [SerializeField] PlayerBattleAnimation playerAnim;
+
     Queue<Pokemon> actionRank;          // 큐에 행동을 담아두고, 스피드 순서로 넣으면 꺼낼 땐 먼저 나오니 이용
     [SerializeField] SetPokemonData data;
 
@@ -58,8 +61,8 @@ public class BattleManager : MonoBehaviour
         skillSlot.gameObject.SetActive(false);
 
         playerUI.gameObject.SetActive(true);
-        enemyUI.gameObject.SetActive(true);
         player.gameObject.SetActive(true);
+        enemyUI.gameObject.SetActive(true);
         enemy.gameObject.SetActive(true);
         SetDatas();                             // 포켓몬 설정
         yield return StartCoroutine(SetUIs());  // UI 띄우기
@@ -88,6 +91,8 @@ public class BattleManager : MonoBehaviour
         playerUI.InitExpSlider((player.CurExp - temp) / ((float)player.NextExp - temp));
         battleLog.gameObject.SetActive(true);   // 배틀 로그 띄워서
         yield return battleLog.DisplayLog($"a wile {enemy.Name} appeared!"); // a wile 적 등장
+        playerAnim.PlayAnimaion();
+        yield return battleLog.DisplayLog($"Go! {player.Name}!");
         selectLog.gameObject.SetActive(true);   // 끝나면 셀렉트 로고 띄우기
         Debug.Log(player.Level);
     }
@@ -251,9 +256,14 @@ public class BattleManager : MonoBehaviour
         bool isLevelUp = player.GetExp(getExp);
         if(isLevelUp)
         {
-            player.LevelUp();
+            bool isGetSkill = player.LevelUp();
             playerUI.InitExpSlider(0f);
             yield return battleLog.DisplayLog($"{player.Name} grew to LV. {player.Level}!");
+
+            if(isGetSkill)
+            {
+                yield return battleLog.DisplayLog($"{player.Name} learend {player.CurrentSkill[player.CurrentSkill.Count - 1]}!");
+            }
 
         }
 

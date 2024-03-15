@@ -92,10 +92,12 @@ public class BattleUI : MonoBehaviour
 
     public IEnumerator ExpRoutine(float curExp, float targetExp)
     {
+        Debug.Log($"{curExp} {targetExp}");
         float rate = 0f;
-
-        if (curExp > 1f)
-            curExp = 1f;
+        if(targetExp > 1f)
+        {
+            targetExp = 1f;
+        }
 
         if (curExp == targetExp)
         {

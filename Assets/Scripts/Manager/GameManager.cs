@@ -37,6 +37,7 @@ public class GameManager : Singleton<GameManager>
         pokemons[curCount].CurExp = level * level * level;
         pokemons[curCount].CurHp = pokemons[curCount].Hp;
         pokemons[curCount].gameObject.SetActive(true);
+        pokemons[curCount].NextExp = (level + 1) * (level + 1) * (level + 1);
         curCount++;
     }
 

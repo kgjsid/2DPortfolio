@@ -18,6 +18,7 @@ public class PlayerMove : MonoBehaviour
     Vector2 moveDir;
     Vector2 currentPoint;
     Vector2 nextPoint;
+    Vector2 lastMove;
 
     bool isMove;
     bool isJump;
@@ -70,7 +71,6 @@ public class PlayerMove : MonoBehaviour
             {
                 FindNextTile(Vector2.down);
             }
-
             animator.SetBool("isMove", isMove);
         }
     }
@@ -84,13 +84,16 @@ public class PlayerMove : MonoBehaviour
 
     private void FindNextTile(Vector2 nextPos)
     {   // 충돌 타겟 검사
+
+        lastMove = moveDir;
+        animator.SetFloat("lastXSpeed", lastMove.x);
+        animator.SetFloat("lastYSpeed", lastMove.y);
         if (isJump)
             return;
         if (Physics2D.Raycast(transform.position, nextPos, 1f, obstacleLayer))
         {
             return;
         }
-
         if (Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider != null)
         {
             // 그거의 뒷 방향에서만 점프가 가능하도록 설정?

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class PokemonDataUI : PopUpUI
 {
     [SerializeField] PokemonButton[] buttons = new PokemonButton[6];
+    [SerializeField] PokemonDetail detail;
     [SerializeField] SetPokemonData set;
 
     private void Start()
@@ -20,5 +22,11 @@ public class PokemonDataUI : PopUpUI
             set.SettingData();
             buttons[i].SetData(Manager.Game.pokemons[i]);
         }
+    }
+
+    public void ShowDetail(Pokemon pokemon)
+    {
+        detail.gameObject.SetActive(true);
+        detail.SetInfo(pokemon);
     }
 }

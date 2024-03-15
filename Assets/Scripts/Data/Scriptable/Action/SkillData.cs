@@ -6,6 +6,7 @@ public abstract class SkillData : ScriptableObject
 {
     public Pokemon user;
     public Pokemon enemy;
+    public AnimationClip clip;
 
     public string name;     // 기술의 이름
     public Type type;     // 기술의 타입(물리, 특수)

@@ -10,6 +10,7 @@ public class PokemonButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Button button;
     [SerializeField] Sprite normalImage;        // 기본 이미지
     [SerializeField] Sprite highlightImage;     // 하이라이트 이미지
+    [SerializeField] PokemonDataUI dataUI;
 
     // 포켓몬 데이터 표기하기
     [SerializeField] TMP_Text nameText;         // 이름   
@@ -18,6 +19,7 @@ public class PokemonButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] TMP_Text maxHpText;        // 최대 체력
     [SerializeField] Image hpImage;             // hp이미지 바
     [SerializeField] Image icon;             // 포켓몬 아이콘
+    [SerializeField] Pokemon pokemon;           // 표시해야 할 포켓몬?
 
     Coroutine imageRoutine;
 
@@ -39,6 +41,7 @@ public class PokemonButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void SetData(Pokemon pokemon)
     {
+        this.pokemon = pokemon;
         nameText.text = pokemon.Name;
         nameLevel.text = pokemon.Level.ToString();
         curHpText.text = pokemon.CurHp.ToString();
@@ -56,5 +59,10 @@ public class PokemonButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             icon.sprite = pokemon.PokemonData.iconImage2;
             yield return new WaitForSecondsRealtime(0.1f);
         }
+    }
+
+    public void OnClick()
+    {
+        dataUI.ShowDetail(this.pokemon);
     }
 }

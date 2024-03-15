@@ -47,18 +47,17 @@ public class Pokemon : MonoBehaviour, IDamagable
     public Pokemon Enemy { get => enemy; set => enemy = value; }
     public string Name { get => data.name; }
     public int Level { get => level; set => level = value; }
-    public List<SkillData> PossessedAction { get => data.possessedAction; }
+    public List<SkillData> CurrentSkill { get => currentSkills; }
     public PokemonData PokemonData { get => data; set => data = value; }
     public SpriteRenderer Sprite { get => sprite; }
     public SkillData CurAction { get => currentAction; }
     public BattleEffect Effective { get => effective; }
     public int CurExp { get => curExp; set => curExp = value; }
-    public int NextExp { get => nextExp; }
+    public int NextExp { get => nextExp; set => nextExp = value; }
 
     public void SetBattle()
     {
         SetButtons();
-        nextExp = (level + 1) * (level + 1) * (level + 1);
     }
     private void SetButtons()
     {   // 버튼에 대한 초기 설정(스킬 세팅하기)
@@ -148,15 +147,15 @@ public class Pokemon : MonoBehaviour, IDamagable
             return false;
     }
 
-    public void LevelUp()
+    public bool LevelUp()
     {
         // 레벨업 루틴
         // 내 스킬데이터 획득하고, 진화하고??
         level++;
-        GetSkills();
+        return GetSkills();
     }
 
-    public void GetSkills()
+    public bool GetSkills()
     {
         for (int i = 0; i < data.skillData.Length; i++)
         {
@@ -169,7 +168,9 @@ public class Pokemon : MonoBehaviour, IDamagable
             if (level >= data.skillData[i].level)
             {
                 currentSkills.Add(data.skillData[i].skill);
+                return true;
             }
         }
+        return false;
     }
 }

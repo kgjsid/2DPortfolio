@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   user: {fileID: 0}
   enemy: {fileID: 0}
+  clip: {fileID: 7400000, guid: 530b6540f993bb443b31ccf88f45d704, type: 2}
   name: Ember
   type: 1
   power: 40
