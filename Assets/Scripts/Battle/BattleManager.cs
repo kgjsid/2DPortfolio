@@ -24,6 +24,7 @@ public class BattleManager : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] PlayerBattleAnimation playerAnim;
+    [SerializeField] Animator playerEffect;
 
     Queue<Pokemon> actionRank;          // 큐에 행동을 담아두고, 스피드 순서로 넣으면 꺼낼 땐 먼저 나오니 이용
     [SerializeField] SetPokemonData data;
@@ -59,9 +60,6 @@ public class BattleManager : MonoBehaviour
         battleLog.gameObject.SetActive(false);  // 로그들은 비활성화
         selectLog.gameObject.SetActive(false);
         skillSlot.gameObject.SetActive(false);
-
-        playerUI.gameObject.SetActive(true);
-        player.gameObject.SetActive(true);
         enemyUI.gameObject.SetActive(true);
         enemy.gameObject.SetActive(true);
         SetDatas();                             // 포켓몬 설정
@@ -70,27 +68,29 @@ public class BattleManager : MonoBehaviour
     private void SetDatas() // 포켓몬 설정
     {
         // 데이터 설정 및 상대 오브젝트 설정
+        enemy.Level = Random.Range(3, 5);
+        data.SetPokemon(enemy, enemyData[Random.Range(0, enemyData.Length)]);
+        enemy.CurHp = enemy.Hp;
+        enemy.Enemy = player;
+    }
+    IEnumerator SetUIs() // UI 설정
+    {
+        enemyUI.SetBattleUI(enemy);
+        enemyUI.InitHpSlider(enemy.CurHp / (float)enemy.Hp);
+        battleLog.gameObject.SetActive(true);   // 배틀 로그 띄워서
+        yield return battleLog.DisplayLog($"a wile {enemy.Name} appeared!"); // a wile 적 등장
+        playerUI.gameObject.SetActive(true);
+        player.gameObject.SetActive(true);
         player.Level = Manager.Game.GetPokemon().Level;
         data.SetPokemon(player, Manager.Game.GetPokemon().PokemonData);
         player.CurHp = Manager.Game.GetPokemon().CurHp;
         player.CurExp = Manager.Game.GetPokemon().CurExp;
         player.GetSkills();
-        enemy.Level = Random.Range(3, 5);
-        data.SetPokemon(enemy, enemyData[Random.Range(0, enemyData.Length)]);
-        enemy.CurHp = enemy.Hp;
         player.Enemy = enemy;
-        enemy.Enemy = player;
-    }
-    IEnumerator SetUIs() // UI 설정
-    {
         playerUI.SetBattleUI(player);           // 배틀 UI설정(체력바, 이름, 레벨)
-        enemyUI.SetBattleUI(enemy);
         playerUI.InitHpSlider(player.CurHp / (float)player.Hp);
-        enemyUI.InitHpSlider(enemy.CurHp / (float)enemy.Hp);
         int temp = player.Level * player.Level * player.Level;
         playerUI.InitExpSlider((player.CurExp - temp) / ((float)player.NextExp - temp));
-        battleLog.gameObject.SetActive(true);   // 배틀 로그 띄워서
-        yield return battleLog.DisplayLog($"a wile {enemy.Name} appeared!"); // a wile 적 등장
         playerAnim.PlayAnimaion();
         yield return battleLog.DisplayLog($"Go! {player.Name}!");
         selectLog.gameObject.SetActive(true);   // 끝나면 셀렉트 로고 띄우기

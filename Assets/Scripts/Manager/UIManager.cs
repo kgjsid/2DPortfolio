@@ -50,6 +50,9 @@ public class UIManager : Singleton<UIManager>
 
     public void ClosePopUpUI()
     {
+        if (popUpStack.Count <= 0)
+            return;
+
         PopUpUI ui = popUpStack.Pop();
         Destroy(ui.gameObject);
 
