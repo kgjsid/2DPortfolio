@@ -54,6 +54,7 @@ public class BattleManager : MonoBehaviour
     }
     IEnumerator SettingBattle()
     {   // 배틀 세팅
+        playerAnim.gameObject.SetActive(true);
         states = BattleStates.Start;
         actionRank = new Queue<Pokemon>();      // 큐 만들고
         battleLog.gameObject.SetActive(false);  // 로그들은 비활성화
@@ -287,6 +288,7 @@ public class BattleManager : MonoBehaviour
         enemyUI.gameObject.SetActive(false);
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
+        playerAnim.gameObject.SetActive(false);
 
         // + 현재 포켓몬의 정보를 게임 매니저가 가지고 가야함
         Manager.Game.UpdatePokemonData(player);

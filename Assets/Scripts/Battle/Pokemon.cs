@@ -78,7 +78,7 @@ public class Pokemon : MonoBehaviour, IDamagable
                     continue;
                 }
                 buttons[i].SetButton(currentSkills[i]); // 버튼에 스킬 세팅하기
-                effect.SetEffectAnimator($"{currentSkills[i]}");
+                effect.SetEffectAnimator($"{currentSkills[i].name}");
             }
         }
     }

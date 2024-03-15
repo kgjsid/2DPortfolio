@@ -92,7 +92,8 @@ Transform:
   m_LocalPosition: {x: 4.3062763, y: 1.5999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4894783665449106584}
   m_Father: {fileID: 8066168382630129906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2571992444378566417
@@ -176,7 +177,7 @@ MonoBehaviour:
   currentAction: {fileID: 0}
   sprite: {fileID: 2571992444378566417}
   currentSkills: []
-  effect: {fileID: 0}
+  effect: {fileID: 8544653016295266572}
   OnDied:
     m_PersistentCalls:
       m_Calls:
@@ -431,6 +432,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2104cbff98bc91149818af061098200e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 8460415221637106976}
+  skillName: []
+--- !u!1 &2621575291303275344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4894783665449106584}
+  - component: {fileID: 8544653016295266572}
+  - component: {fileID: 4098702130573194983}
+  m_Layer: 0
+  m_Name: EnemySkillEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4894783665449106584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621575291303275344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 671611182940327840}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8544653016295266572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621575291303275344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2104cbff98bc91149818af061098200e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4098702130573194983}
+  skillName: []
+--- !u!95 &4098702130573194983
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621575291303275344}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2699215240187761236
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,7 +715,7 @@ MonoBehaviour:
   currentAction: {fileID: 0}
   sprite: {fileID: 6953402068773529199}
   currentSkills: []
-  effect: {fileID: 8460415221637106976}
+  effect: {fileID: 3007971571650062254}
   OnDied:
     m_PersistentCalls:
       m_Calls:
