@@ -11,6 +11,8 @@ public class TestDebug : MonoBehaviour
     [SerializeField] TileAnimationData tileData;
     [SerializeField] GridManager gridManager;
     [SerializeField] PlayerMove player;
+    [SerializeField] Animator animator;
+    [SerializeField] SkillData skillData;
 
     private void Update()
     {
@@ -29,5 +31,17 @@ public class TestDebug : MonoBehaviour
             }
         }
         */
+    }
+    [ContextMenu("Use")]
+    public void OnUse()
+    {
+        animator.Play("Ember");
+    }
+
+    [ContextMenu("Debug")]
+    public void DebugTest()
+    {
+        Debug.Log($"{skillData.name}");
+        
     }
 }

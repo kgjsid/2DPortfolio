@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 6
   curCount: 1
+  curPokemon: 0
   pokemons:
   - {fileID: 2298096308704025251}
   - {fileID: 2929026359769412585}
@@ -167,9 +168,11 @@ MonoBehaviour:
   speed: 0
   curHp: 0
   curExp: 0
+  nextExp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 5484501690654922042}
+  currentSkills: []
   OnDied:
     m_PersistentCalls:
       m_Calls: []
@@ -282,9 +285,11 @@ MonoBehaviour:
   speed: 0
   curHp: 0
   curExp: 0
+  nextExp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 4974394540108760290}
+  currentSkills: []
   OnDied:
     m_PersistentCalls:
       m_Calls: []
@@ -397,9 +402,11 @@ MonoBehaviour:
   speed: 0
   curHp: 0
   curExp: 0
+  nextExp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 1668037000417338896}
+  currentSkills: []
   OnDied:
     m_PersistentCalls:
       m_Calls: []
@@ -593,9 +600,11 @@ MonoBehaviour:
   speed: 0
   curHp: 0
   curExp: 0
+  nextExp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 5548287812058872597}
+  currentSkills: []
   OnDied:
     m_PersistentCalls:
       m_Calls: []
@@ -708,9 +717,11 @@ MonoBehaviour:
   speed: 0
   curHp: 0
   curExp: 0
+  nextExp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 1398655314052994892}
+  currentSkills: []
   OnDied:
     m_PersistentCalls:
       m_Calls: []
@@ -823,9 +834,11 @@ MonoBehaviour:
   speed: 0
   curHp: 0
   curExp: 0
+  nextExp: 0
   enemy: {fileID: 0}
   currentAction: {fileID: 0}
   sprite: {fileID: 1167243087248099535}
+  currentSkills: []
   OnDied:
     m_PersistentCalls:
       m_Calls: []

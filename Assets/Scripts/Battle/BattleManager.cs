@@ -24,7 +24,6 @@ public class BattleManager : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] PlayerBattleAnimation playerAnim;
-    [SerializeField] Animator playerEffect;
 
     Queue<Pokemon> actionRank;          // 큐에 행동을 담아두고, 스피드 순서로 넣으면 꺼낼 땐 먼저 나오니 이용
     [SerializeField] SetPokemonData data;

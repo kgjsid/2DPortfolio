@@ -31,6 +31,7 @@ public class Pokemon : MonoBehaviour, IDamagable
     [SerializeField] SkillData currentAction;            // 현재 선택한 액션
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] List<SkillData> currentSkills;      // 현재 스킬들
+    [SerializeField] SkillEffectAnimation effect;
 
     public UnityEvent OnDied;
     private float typeValue;
@@ -77,6 +78,7 @@ public class Pokemon : MonoBehaviour, IDamagable
                     continue;
                 }
                 buttons[i].SetButton(currentSkills[i]); // 버튼에 스킬 세팅하기
+                effect.SetEffectAnimator($"{currentSkills[i]}");
             }
         }
     }
@@ -132,7 +134,7 @@ public class Pokemon : MonoBehaviour, IDamagable
             effective = BattleEffect.Normal;
         }
         int damage = (int)(currentAction.Execute(this, enemy) * typeValue);
-
+        effect.UseEffect($"{currentAction.name}");
         currentAction = null;
         return damage > 1 ? damage : 1;
     }
