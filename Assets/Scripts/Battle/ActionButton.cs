@@ -9,9 +9,11 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 {
     // 스크립터블 오브젝트 활용하여 스킬 장착하기
     [SerializeField] Button button;
-    [SerializeField] SkillData skill;
+    [SerializeField] Skill skill;
     [SerializeField] Pokemon owner;
     [SerializeField] TMP_Text text;
+
+    [SerializeField] SkillInfoUI skillInfoUI;
 
     private void OnEnable()
     {
@@ -24,10 +26,10 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     // 버튼 세팅함수
     // 버튼에 이벤트 연결해두고, 텍스트 이름 바꾸기
-    public void SetButton(SkillData skill)
+    public void SetButton(Skill skill)
     {
         this.skill = skill;
-        text.text = skill.name;
+        text.text = skill.Skilldata.name;
         button.interactable = true;
     }
 
@@ -47,6 +49,8 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         text.color = Color.blue;
+        if (skill != null)
+            skillInfoUI.ShowSkillInfo(skill);
     }
 
     public void OnPointerExit(PointerEventData eventData)

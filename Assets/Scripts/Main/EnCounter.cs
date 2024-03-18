@@ -8,6 +8,7 @@ public class EnCounter : MonoBehaviour
     [SerializeField] LayerMask battleGrass;
 
     public UnityEvent battleStart;
+
     private void Start()
     {
     }

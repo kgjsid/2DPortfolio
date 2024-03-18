@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TestDebug : MonoBehaviour
+public class Test
+    : MonoBehaviour
 {
     [SerializeField] Tilemap tile;
     [SerializeField] AnimatedTile animatedTile;
@@ -13,6 +14,8 @@ public class TestDebug : MonoBehaviour
     [SerializeField] PlayerMove player;
     [SerializeField] Animator animator;
     [SerializeField] SkillData skillData;
+    [SerializeField] List<SkillData> skillList;
+ 
 
     private void Update()
     {
@@ -32,16 +35,5 @@ public class TestDebug : MonoBehaviour
         }
         */
     }
-    [ContextMenu("Use")]
-    public void OnUse()
-    {
-        animator.Play("Ember");
-    }
-
-    [ContextMenu("Debug")]
-    public void DebugTest()
-    {
-        Debug.Log($"{skillData.name}");
-        
-    }
+    
 }

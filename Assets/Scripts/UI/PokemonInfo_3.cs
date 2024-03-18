@@ -43,10 +43,10 @@ public class PokemonInfo_3 : MonoBehaviour
             skillSets[i].MaxPPText.gameObject.SetActive(true);
             skillSets[i].SkillImage.gameObject.SetActive(true);
 
-            skillSets[i].SkillName.text = pokemon.CurrentSkill[i].name;
-            skillSets[i].CurPPText.text = pokemon.CurrentSkill[i].curPP.ToString();
-            skillSets[i].MaxPPText.text = pokemon.CurrentSkill[i].maxPP.ToString();
-            skillSets[i].SkillImage.sprite = sprites[(int)pokemon.CurrentSkill[i].type];
+            skillSets[i].SkillName.text = pokemon.CurrentSkill[i].Skilldata.name;
+            skillSets[i].CurPPText.text = pokemon.CurrentSkill[i].CurPP.ToString();
+            skillSets[i].MaxPPText.text = pokemon.CurrentSkill[i].Skilldata.maxPP.ToString();
+            skillSets[i].SkillImage.sprite = sprites[(int)pokemon.CurrentSkill[i].Skilldata.type];
         }
     }
 }

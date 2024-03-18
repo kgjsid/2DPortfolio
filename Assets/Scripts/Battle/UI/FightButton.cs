@@ -9,7 +9,6 @@ public class FightButton : ActionUI
 
     public void FightClick()
     {
-        Debug.Log("On Click");
         OnClick?.Invoke();
     }
 }

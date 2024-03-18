@@ -27,7 +27,6 @@ public class BattleManager : MonoBehaviour
 
     Queue<Pokemon> actionRank;          // 큐에 행동을 담아두고, 스피드 순서로 넣으면 꺼낼 땐 먼저 나오니 이용
     [SerializeField] SetPokemonData data;
-
     [SerializeField] PokemonData[] enemyData;
 
     public BattleStates states;
@@ -94,7 +93,6 @@ public class BattleManager : MonoBehaviour
         playerAnim.PlayAnimaion();
         yield return battleLog.DisplayLog($"Go! {player.Name}!");
         selectLog.gameObject.SetActive(true);   // 끝나면 셀렉트 로고 띄우기
-        Debug.Log(player.Level);
     }
     public void DisplayLog(string text) // 로그 천천히 띄우기
     {
@@ -162,7 +160,6 @@ public class BattleManager : MonoBehaviour
     // States.PlayerTurn 시작 
     IEnumerator PlayerTurn()
     {
-        // 체력이 줄어드는 모션을 위해 이전에서 목적지까지 갈 수 있도록
         int playerPrevHp = player.CurHp;
         int enemyPrevHp = enemy.CurHp;
 
@@ -186,6 +183,7 @@ public class BattleManager : MonoBehaviour
         {
             states = BattleStates.Win;
             yield return Win();
+            isDead = false;
         }
         else if(actionRank.Count != 0)
         {
@@ -228,6 +226,7 @@ public class BattleManager : MonoBehaviour
         {
             states = BattleStates.Lose;
             Lose();
+            isDead = false;
         }
         else if (actionRank.Count != 0)
         {
@@ -244,12 +243,12 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator Win()
     {
-        // 승리 효과....
-        // 64는 잡은 포켓몬마다 다른 수율?? -> 일단 평균정도 사용
         int getExp = (int)(200 * enemy.Level / 7);
 
         yield return battleLog.DisplayLog($"{enemy.Name} is Fainted");
         enemy.Die();
+        yield return new WaitForSeconds(0.2f);
+        enemy.gameObject.SetActive(false);
         yield return battleLog.DisplayLog($"{player.Name} gained {getExp} EXP. Points!");
 
         int temp = (player.Level * player.Level * player.Level);
@@ -264,7 +263,7 @@ public class BattleManager : MonoBehaviour
 
             if(isGetSkill)
             {
-                yield return battleLog.DisplayLog($"{player.Name} learend {player.CurrentSkill[player.CurrentSkill.Count - 1]}!");
+                yield return battleLog.DisplayLog($"{player.Name} learend {player.CurrentSkill[player.CurrentSkill.Count - 1].Skilldata.name}!");
             }
 
         }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -7,7 +8,7 @@ public class GameManager : Singleton<GameManager>
     public int maxCount = 6;           // 최대 소지 수
     public int curCount = 0;           // 현재 수
     public int curPokemon;
-    public List<Pokemon> pokemons = new List<Pokemon>();              // 포켓몬 오브젝트
+    public List<Pokemon> pokemons = new List<Pokemon>();              // 포켓몬 오브젝트    
 
     public SetPokemonData setPokemonData;
     [SerializeField] PlayerMove player;
@@ -31,11 +32,8 @@ public class GameManager : Singleton<GameManager>
         }
         pokemons[curCount].Level = level;
         pokemons[curCount].PokemonData = newPokemon;
-        setPokemonData.SetPokemon(pokemons[curCount]);
-        setPokemonData.SettingData();
-        pokemons[curCount].GetSkills();
+        InitPokemonData();
         pokemons[curCount].CurExp = level * level * level;
-        pokemons[curCount].CurHp = pokemons[curCount].Hp;
         pokemons[curCount].gameObject.SetActive(true);
         pokemons[curCount].NextExp = (level + 1) * (level + 1) * (level + 1);
         curCount++;
@@ -70,5 +68,16 @@ public class GameManager : Singleton<GameManager>
     public void UpdatePokemonData(Pokemon pokemon)
     {   // 포켓몬 데이터 설정
         setPokemonData.UpdateDate(pokemons[curPokemon], pokemon);
+    }
+
+    private void InitPokemonData()
+    {
+        setPokemonData.SetPokemon(pokemons[curCount]);
+        setPokemonData.SettingData();
+        pokemons[curCount].CurHp = pokemons[curCount].Hp;
+        pokemons[curCount].GetSkills();
+        pokemons[curCount].GetSkills();
+        pokemons[curCount].GetSkills();
+        pokemons[curCount].GetSkills();
     }
 }

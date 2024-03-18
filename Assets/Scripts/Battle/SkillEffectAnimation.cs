@@ -29,15 +29,4 @@ public class SkillEffectAnimation : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         animator.Play("Empty");
     }
-    /*
-    public void HitEffect()
-    {
-        // Å¸°Ý ÀÌÆåÆ®
-    }
-
-    public void FaintEffect()
-    {
-        // Á×´Â ÀÌÆåÆ®?
-    }
-    */
 }

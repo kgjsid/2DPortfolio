@@ -21,6 +21,5 @@ public class PokemonInfo_1 : MonoBehaviour
         levelText.text = pokemon.Level.ToString();
         nameText.text = pokemon.Name;
         nameText1.text = pokemon.Name;
-
     }
 }

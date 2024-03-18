@@ -65,5 +65,16 @@ public class SetPokemonData : MonoBehaviour
         Target.CurHp = pokemon.CurHp;
         Target.Level = pokemon.Level;
         Target.CurExp = pokemon.CurExp;
+        for(int i = 0; i < pokemon.CurrentSkill.Count; i++)
+        {
+            if(pokemon.CurrentSkill.Count != Target.CurrentSkill.Count)
+            {
+                Target.GetSkills();
+            }
+            else
+            {
+                Target.CurrentSkill[i].CurPP = pokemon.CurrentSkill[i].CurPP;
+            }
+        }
     }
 }

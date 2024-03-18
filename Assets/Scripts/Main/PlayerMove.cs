@@ -84,7 +84,6 @@ public class PlayerMove : MonoBehaviour
 
     private void FindNextTile(Vector2 nextPos)
     {   // 충돌 타겟 검사
-
         lastMove = moveDir;
         animator.SetFloat("lastXSpeed", lastMove.x);
         animator.SetFloat("lastYSpeed", lastMove.y);
@@ -97,9 +96,9 @@ public class PlayerMove : MonoBehaviour
         if (Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer).collider != null)
         {
             // 그거의 뒷 방향에서만 점프가 가능하도록 설정?
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, nextPos, 1f, jumpLayer);
+            Vector2 jumpTilePos = currentPoint + nextPos;
 
-            if (hit.collider.gameObject.transform.position.y < transform.position.y)
+            if (jumpTilePos.y < currentPoint.y)
                 StartCoroutine(JumpRoutine(currentPoint, nextPos));
             return;
         }
@@ -204,5 +203,4 @@ public class PlayerMove : MonoBehaviour
         isJump = false;
         moveEvent?.Invoke();
     }
-    // 점프루틴 수정 필요 -> 콜라이더 무시에서 에러 발생
 }
