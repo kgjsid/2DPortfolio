@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public enum BattleStates { Start, Selecting, PlayerTurn, EnemyTurn, Win, Lose}
+public enum BattleStates { Start, Selecting, PlayerTurn, EnemyTurn, Win, Lose, Capture}
 public enum BattleEffect { Normal, HighEffective, LowEffective}
 public class BattleManager : MonoBehaviour
 {
@@ -71,6 +71,10 @@ public class BattleManager : MonoBehaviour
         data.SetPokemon(enemy, enemyData[Random.Range(0, enemyData.Length)]);
         enemy.CurHp = enemy.Hp;
         enemy.Enemy = player;
+        player.Level = Manager.Game.GetPokemon().Level;
+        data.SetPokemon(player, Manager.Game.GetPokemon().PokemonData);
+        player.CurHp = Manager.Game.GetPokemon().CurHp;
+        player.CurExp = Manager.Game.GetPokemon().CurExp;
     }
     IEnumerator SetUIs() // UI 설정
     {
@@ -78,20 +82,20 @@ public class BattleManager : MonoBehaviour
         enemyUI.InitHpSlider(enemy.CurHp / (float)enemy.Hp);
         battleLog.gameObject.SetActive(true);   // 배틀 로그 띄워서
         yield return battleLog.DisplayLog($"a wile {enemy.Name} appeared!"); // a wile 적 등장
+        playerAnim.PlayAnimaion();
+        yield return battleLog.DisplayLog($"Go! {player.Name}!");
+    }
+    public void SettingPlayerPokemon()
+    {
+        playerAnim.gameObject.SetActive(false);
         playerUI.gameObject.SetActive(true);
         player.gameObject.SetActive(true);
-        player.Level = Manager.Game.GetPokemon().Level;
-        data.SetPokemon(player, Manager.Game.GetPokemon().PokemonData);
-        player.CurHp = Manager.Game.GetPokemon().CurHp;
-        player.CurExp = Manager.Game.GetPokemon().CurExp;
         player.GetSkills();
         player.Enemy = enemy;
         playerUI.SetBattleUI(player);           // 배틀 UI설정(체력바, 이름, 레벨)
         playerUI.InitHpSlider(player.CurHp / (float)player.Hp);
         int temp = player.Level * player.Level * player.Level;
         playerUI.InitExpSlider((player.CurExp - temp) / ((float)player.NextExp - temp));
-        playerAnim.PlayAnimaion();
-        yield return battleLog.DisplayLog($"Go! {player.Name}!");
         selectLog.gameObject.SetActive(true);   // 끝나면 셀렉트 로고 띄우기
     }
     public void DisplayLog(string text) // 로그 천천히 띄우기
@@ -109,6 +113,7 @@ public class BattleManager : MonoBehaviour
         states = BattleStates.Selecting;
         StartBattleSelecting();
     }
+
     private void StartBattleSelecting()
     {   
         battleRoutine = StartCoroutine(BattleSelectingRoutine());
@@ -193,7 +198,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             states = BattleStates.Selecting;
-            StartBattleSelecting();
+            selectLog.gameObject.SetActive(true);
         }
     }
     // States.PlayerTurn 끝
@@ -236,7 +241,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             states = BattleStates.Selecting;
-            StartBattleSelecting();
+            selectLog.gameObject.SetActive(true);
         }
     }
     // States.EnemyTurn 끝
@@ -269,7 +274,6 @@ public class BattleManager : MonoBehaviour
         }
 
         EndBattle();
-        Manager.Scene.LoadScene("FieldScene");
     }
 
     private void Lose()
@@ -278,6 +282,29 @@ public class BattleManager : MonoBehaviour
         DisplayLog($"My {player.Name} is Fainted");
         player.Die();
         // 다음 포켓몬으로 교체??
+    }
+
+    // 포획 시작
+    public void StartCapture()
+    {
+        DisplayLog($"Used Pokeball");
+        selectLog.gameObject.SetActive(false);
+        states = BattleStates.Capture;
+        playerAnim.gameObject.SetActive(true);
+        playerAnim.CaptureAnimation();
+        enemy.gameObject.SetActive(false);
+    }
+    
+    public void CaptureSuccess()
+    {
+        StartCoroutine(CaptureRoutine());
+    }
+    IEnumerator CaptureRoutine()
+    {
+        Manager.Game.SetPokemon(enemy.PokemonData, enemy.Level);
+        yield return battleLog.DisplayLog($"Gotcha!\n{enemy.PokemonData.name} was caught!");
+        Manager.Game.pokemons[Manager.Game.curCount - 1].CurHp = enemy.CurHp;
+        EndBattle();
     }
 
     public void EndBattle()
@@ -294,6 +321,8 @@ public class BattleManager : MonoBehaviour
 
         // + 현재 포켓몬의 정보를 게임 매니저가 가지고 가야함
         Manager.Game.UpdatePokemonData(player);
+
+        Manager.Scene.LoadScene("FieldScene");
     }
 
 }

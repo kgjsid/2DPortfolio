@@ -30,4 +30,6 @@ MonoBehaviour:
     skill: {fileID: 11400000, guid: a2a1cfd19132a294993dd48816531a99, type: 2}
   - level: 4
     skill: {fileID: 11400000, guid: 9f0a4b465096f12448e75944943d807a, type: 2}
+  - level: 8
+    skill: {fileID: 11400000, guid: 6c8d6bf0c85813a4eb577ba089533f40, type: 2}
   nextPokemon: {fileID: 0}

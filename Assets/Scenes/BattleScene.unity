@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2298096308704025251, guid: 02192446b96268e4dbd338147d115665, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: eaa6614ca46752b41822812ea3ffafb5, type: 2}
+    - target: {fileID: 2298096308704025251, guid: 02192446b96268e4dbd338147d115665, type: 3}
+      propertyPath: level
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -188,38 +196,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 645825289414632414, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1682140171111556387, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-      propertyPath: skillInfoUI
-      value: 
-      objectReference: {fileID: 436957117}
     - target: {fileID: 3538578267782279399, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
       propertyPath: m_Name
       value: BattleManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4959195743450021758, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-      propertyPath: skillInfoUI
-      value: 
-      objectReference: {fileID: 436957117}
-    - target: {fileID: 6174937352854337111, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+    - target: {fileID: 6228706767404738233, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6678419616067348873, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-      propertyPath: skillInfoUI
-      value: 
-      objectReference: {fileID: 436957117}
-    - target: {fileID: 6753080414317904849, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+    - target: {fileID: 6228706767404738233, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: m_Color.g
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6991816732294073004, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-      propertyPath: skillInfoUI
-      value: 
-      objectReference: {fileID: 436957117}
+    - target: {fileID: 6228706767404738233, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8066168382630129906, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -260,22 +252,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8936792968691465873, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.42
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
---- !u!114 &436957117 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3861703748797559842, guid: 1b8251db625b8db48a1c3a294d91176c, type: 3}
-  m_PrefabInstance: {fileID: 436957116}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52111636fa895ac439b18941616d508c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &443115289
 GameObject:
   m_ObjectHideFlags: 0
