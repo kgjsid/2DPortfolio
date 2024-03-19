@@ -16,7 +16,6 @@ public class DiaLogUI : MonoBehaviour
 
     public IEnumerator DisplayLog(string text)
     {
-
         battleLogText = new StringBuilder();
         foreach (char c in text)
         { // stringbuilder ÀÌ¿כ

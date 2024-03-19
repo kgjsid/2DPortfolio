@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using TMPro;
 using UnityEngine;
 
-public class NPCPopUpUI : MonoBehaviour
+public class NPCPopUpUI : PopUpUI
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] TMP_Text dialogText;
+
+    StringBuilder dialogBuilder;
+    private void OnEnable()
     {
-        
+        dialogText.text = "";
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Display(string text)
     {
-        
+        Debug.Log($"Display");
+        StartCoroutine(DisplayLog(text));
+    }
+
+    public IEnumerator DisplayLog(string text)
+    {
+        dialogBuilder = new StringBuilder();
+        foreach (char c in text)
+        { // stringbuilder ÀÌ¿כ
+            dialogBuilder.Append(c);
+            dialogText.text = dialogBuilder.ToString();
+
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
     }
 }

@@ -6,6 +6,6 @@ public class Blocker : MonoBehaviour
 {
     public void BlockerClick()
     {
-        Manager.UI.ClosePopUpUI();
+        //Manager.UI.ClosePopUpUI();
     }
 }

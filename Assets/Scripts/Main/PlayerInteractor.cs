@@ -9,7 +9,7 @@ public class PlayerInteractor : MonoBehaviour
     Collider2D[] colliders = new Collider2D[10];
     private void OnInteract(InputValue value)
     {
-        int size = Physics2D.OverlapCircleNonAlloc(transform.position, 0.5f, colliders);
+        int size = Physics2D.OverlapCircleNonAlloc(transform.position, 1f, colliders);
         
         for(int i = 0; i < size; i++)
         {
