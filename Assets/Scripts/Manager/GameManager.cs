@@ -14,6 +14,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] PlayerMove player;
     public Vector3 curPos;
 
+    public PlayerMove Player 
+    {   get 
+        { 
+            if(player == null)
+            {
+                player = FindObjectOfType<PlayerMove>();
+            }
+
+            return player; 
+        }
+    }
+
     private void Start()
     {
         for(int i = 0; i < pokemons.Count; i++)

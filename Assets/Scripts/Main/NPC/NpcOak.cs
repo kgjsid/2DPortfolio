@@ -15,7 +15,7 @@ public class NpcOak : DialogNPC
     }
 
     public override void Interact(PlayerInteractor player)
-    {
+    {   
         TalkManager.Talk.ShowUI(id);
 
         for (int i = 0; i < pokeBalls.Length; i++)

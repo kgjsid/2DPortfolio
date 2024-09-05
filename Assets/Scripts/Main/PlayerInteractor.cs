@@ -6,9 +6,18 @@ using UnityEngine.InputSystem;
 public class PlayerInteractor : MonoBehaviour
 {
     // 상호작용 스크립트
+    bool isInteract = false;
+
+    public bool IsInteract { get { return isInteract; } set { isInteract = value; } }
+
     Collider2D[] colliders = new Collider2D[10];
     private void OnInteract(InputValue value)
     {
+        if(isInteract)
+        {   // 상호작용인 경우에는 진행하지 않음.
+            return;
+        }
+
         int size = Physics2D.OverlapCircleNonAlloc(transform.position, 1f, colliders);
         
         for(int i = 0; i < size; i++)

@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PokemonDataUI : PopUpUI
+/// <summary>
+/// 현재 유저가 가진 포켓몬의 정보를 보여줄 UI
+/// </summary>
+public class PokemonDataUI : MonoBehaviour
 {
     [SerializeField] PokemonButton[] buttons = new PokemonButton[6];
     [SerializeField] PokemonDetail detail;
     [SerializeField] SetPokemonData set;
 
-    private void Start()
+    private void OnEnable()
     {
         for(int i = 0; i < buttons.Length; i++)
         {

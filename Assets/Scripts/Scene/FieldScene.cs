@@ -9,6 +9,7 @@ public class FieldScene : BaseScene
     {
         Manager.Game.RecordPos();
         Manager.Scene.LoadScene("BattleScene");
+        Manager.UI.FindPlayer();
     }
     public override IEnumerator LoadingRoutine()
     {

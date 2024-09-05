@@ -16,9 +16,16 @@ public class UIManager : Singleton<UIManager>
     private float prevTimeScale;
     private InGameUI curInGameUI;
 
+    [SerializeField] PlayerInteractor player;
+
     private void Start()
     {
         EnsureEventSystem();
+
+        if(player == null)
+        {
+            player = GameObject.FindObjectOfType<PlayerInteractor>();
+        }
     }
 
     public void EnsureEventSystem()
@@ -119,5 +126,18 @@ public class UIManager : Singleton<UIManager>
         inGameBlocker.gameObject.SetActive(false);
         Destroy(curInGameUI.gameObject);
         curInGameUI = null;
+    }
+
+    public void FindPlayer()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindObjectOfType<PlayerInteractor>();
+        }
+    }
+
+    public void SetPlayerInteract(bool value)
+    {
+        player.IsInteract = value;
     }
 }
