@@ -13,12 +13,9 @@ public class PokemonDetail : MonoBehaviour
 
     int currentCount = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         currentCount = 0;
-        info1 = GetComponentInChildren<PokemonInfo_1>();
-        info2 = GetComponentInChildren<PokemonInfo_2>();
-        info3 = GetComponentInChildren<PokemonInfo_3>();
 
         info1.gameObject.SetActive(true);
         info2.gameObject.SetActive(false);

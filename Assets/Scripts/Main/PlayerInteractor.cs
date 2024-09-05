@@ -27,6 +27,7 @@ public class PlayerInteractor : MonoBehaviour
             if(interactable != null)
             {
                 interactable.Interact(this);
+                break;
             }
         }
     }

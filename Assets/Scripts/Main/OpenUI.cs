@@ -30,7 +30,7 @@ public class OpenUI : MonoBehaviour
         bool isOpen = inventory.gameObject.activeSelf;
 
         inventory.gameObject.SetActive(!isOpen);
-        Manager.Game.Player.enabled = !isOpen;
+        Manager.Game.Player.enabled = isOpen;
     }
 
 }

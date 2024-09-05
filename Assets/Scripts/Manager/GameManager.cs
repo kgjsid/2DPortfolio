@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     private void Start()
-    {
+    {   // 게임 시작
         for(int i = 0; i < pokemons.Count; i++)
         {
             pokemons[i].gameObject.SetActive(false);

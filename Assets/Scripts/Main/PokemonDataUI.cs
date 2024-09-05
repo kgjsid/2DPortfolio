@@ -14,7 +14,8 @@ public class PokemonDataUI : MonoBehaviour
 
     private void OnEnable()
     {
-        for(int i = 0; i < buttons.Length; i++)
+        detail.gameObject.SetActive(false);
+        for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].gameObject.SetActive(false);
         }
