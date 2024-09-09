@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -32,7 +31,7 @@ public class GameManager : Singleton<GameManager>
         for(int i = 0; i < pokemons.Count; i++)
         {
             pokemons[i].gameObject.SetActive(false);
-        }
+        }   
         curCount = 0;
 
     }
@@ -44,6 +43,8 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("최대 소지중!");
             return;
         }
+        
+
         pokemons[curCount].Level = level;
         pokemons[curCount].PokemonData = newPokemon;
         InitPokemonData();

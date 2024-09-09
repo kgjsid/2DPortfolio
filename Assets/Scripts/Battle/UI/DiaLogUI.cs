@@ -22,7 +22,7 @@ public class DiaLogUI : MonoBehaviour
             battleLogText.Append(c);
             battleLog.text = $"{battleLogText.ToString()}";
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 }

@@ -22,13 +22,14 @@ public class NPCPopUpUI : PopUpUI
 
     public IEnumerator DisplayLog(string text)
     {
+
         dialogBuilder = new StringBuilder();
         foreach (char c in text)
         { // stringbuilder ÀÌ¿כ
             dialogBuilder.Append(c);
             dialogText.text = dialogBuilder.ToString();
 
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.05f);
         }
     }
 }

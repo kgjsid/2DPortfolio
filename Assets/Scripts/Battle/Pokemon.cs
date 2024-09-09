@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 public class Pokemon : MonoBehaviour, IDamagable
@@ -27,9 +28,9 @@ public class Pokemon : MonoBehaviour, IDamagable
     [SerializeField] int curExp;          // 포켓몬의 현재 경험치
     [SerializeField] int nextExp;         // 다음까지의 경험치??
 
-    [SerializeField] Pokemon enemy;                      // 상대방에 대한 정보
+    [SerializeField] Pokemon enemy;                  // 상대방에 대한 정보
     [SerializeField] Skill currentAction;            // 현재 선택한 액션
-    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] SpriteRenderer sprite;          // 이미지
     [SerializeField] List<Skill> currentSkills = new List<Skill>();      // 현재 스킬들
     [SerializeField] SkillEffectAnimation effect;
     [SerializeField] Animator animator;
@@ -39,7 +40,13 @@ public class Pokemon : MonoBehaviour, IDamagable
 
     // 프로퍼티...
     public int Hp { get => hp; set => hp = value; }
-    public int CurHp { get => curHp; set => curHp = value; }
+    public int CurHp { get => curHp;
+        set
+        {
+            curHp = Mathf.Clamp(value, 0, hp);
+            curHp = value;
+        }
+    }
     public int Speed { get => speed; set => speed = value; }
     public int Damage { get => damage; set => damage = value; }
     public int SpecialDamage { get => specialDamage; set => specialDamage = value; }
@@ -69,6 +76,7 @@ public class Pokemon : MonoBehaviour, IDamagable
         SetButtons();
         nextExp = (level + 1) * (level + 1) * (level + 1);
     }
+
     private void SetButtons()
     {   // 버튼에 대한 초기 설정(스킬 세팅하기)
         if (controlType == 1)
@@ -109,8 +117,12 @@ public class Pokemon : MonoBehaviour, IDamagable
     }
     public bool TakeDamage(int damage)
     {
+        if (dieRoutine != null)
+        {
+            StopCoroutine(dieRoutine);
+        }
         curHp -= damage;
-        animator.Play("Hit");
+        animator.SetTrigger("Hit");
         if (curHp <= 0)
         {
             return true;
@@ -200,6 +212,41 @@ public class Pokemon : MonoBehaviour, IDamagable
 
     public void Die()
     {
-        animator.Play("Faint");
+        Debug.Log("Die 이벤트");
+        // animator.SetTrigger("Death");
+        dieRoutine = StartCoroutine(DieRoutine());
     }
+
+    Coroutine dieRoutine;
+
+    IEnumerator DieRoutine()
+    {
+        Vector3 pos = transform.position;
+
+        Vector3 targetPos = transform.position;
+        targetPos.y -= 3f;
+
+        float rate = 0f;
+
+        while(rate < 1f)
+        {
+            rate += 0.1f;
+
+            if(rate > 1f)
+            {
+                rate = 1f;
+            }
+
+            transform.position = Vector3.Lerp(pos, targetPos, rate);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+}
+
+public enum ControlType 
+{
+    Player,
+    Wild,
+    Trainer
 }

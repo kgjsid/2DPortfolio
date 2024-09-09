@@ -95,7 +95,8 @@ public class BattleManager : MonoBehaviour
         playerUI.SetBattleUI(player);           // 배틀 UI설정(체력바, 이름, 레벨)
         playerUI.InitHpSlider(player.CurHp / (float)player.Hp);
         int temp = player.Level * player.Level * player.Level;
-        playerUI.InitExpSlider((player.CurExp - temp) / ((float)player.NextExp - temp));
+        playerUI.InitExpSlider((player.CurExp - temp) / ((float)Manager.Game.pokemons[Manager.Game.curPokemon].NextExp - temp));
+
         selectLog.gameObject.SetActive(true);   // 끝나면 셀렉트 로고 띄우기
     }
     public void DisplayLog(string text) // 로그 천천히 띄우기
@@ -120,7 +121,7 @@ public class BattleManager : MonoBehaviour
     }
     IEnumerator BattleSelectingRoutine()
     {  
-        if (skillSlot.gameObject.active == false)
+        if (skillSlot.gameObject.activeSelf == false)
         {   // 버튼 다시 켜지도록
             skillSlot.gameObject.SetActive(true);
             player.SetBattle();
@@ -265,6 +266,7 @@ public class BattleManager : MonoBehaviour
             bool isGetSkill = player.LevelUp();
             playerUI.InitExpSlider(0f);
             yield return battleLog.DisplayLog($"{player.Name} grew to LV. {player.Level}!");
+            Manager.Game.pokemons[Manager.Game.curPokemon].NextExp = (player.Level + 1) * (player.Level + 1) * (player.Level + 1);
 
             if(isGetSkill)
             {
