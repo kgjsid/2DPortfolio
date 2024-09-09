@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 
@@ -33,6 +34,7 @@ public class GameManager : Singleton<GameManager>
             pokemons[i].gameObject.SetActive(false);
         }
         curCount = 0;
+
     }
 
     public void SetPokemon(PokemonData newPokemon, int level)
@@ -70,11 +72,7 @@ public class GameManager : Singleton<GameManager>
 
     public void RecordPos()
     {
-        if (player == null)
-        {
-            player = FindObjectOfType<PlayerMove>();
-        }
-        curPos = player.gameObject.transform.position;
+        curPos = Player.gameObject.transform.position;
     }
 
     public void UpdatePokemonData(Pokemon pokemon)
@@ -93,3 +91,4 @@ public class GameManager : Singleton<GameManager>
         pokemons[curCount].GetSkills();
     }
 }
+
