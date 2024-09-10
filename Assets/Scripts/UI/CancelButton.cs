@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class CancelButton : MonoBehaviour
 {
+    [SerializeField] PokemonDataUI dataUI;
+
     public void ClickCancelButton()
     {
-        Manager.UI.ClosePopUpUI();
+        dataUI.gameObject.SetActive(false);
+        Manager.Game.Player.enabled = true;
     }
 }

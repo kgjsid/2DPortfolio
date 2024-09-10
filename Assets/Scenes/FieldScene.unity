@@ -154,6 +154,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 620096999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &150453561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3173084411082743802, guid: c385fdfd50117534984891db7d4345fd, type: 3}
+  m_PrefabInstance: {fileID: 1222072559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea925db1b7698284b97e49d494518545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &166521260
 GameObject:
   m_ObjectHideFlags: 0
@@ -13005,21 +13016,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3173084411082743802, guid: c385fdfd50117534984891db7d4345fd, type: 3}
+      propertyPath: dataUI
+      value: 
+      objectReference: {fileID: 1222072561}
+    - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1543328537}
+      objectReference: {fileID: 150453561}
+    - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: ClickCancelButton
       objectReference: {fileID: 0}
     - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CancelButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279020938584598296, guid: c385fdfd50117534984891db7d4345fd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7902537659406733898, guid: c385fdfd50117534984891db7d4345fd, type: 3}
       propertyPath: m_Name
@@ -13044,7 +13079,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4168823123678765176, guid: c385fdfd50117534984891db7d4345fd, type: 3}
   m_PrefabInstance: {fileID: 1222072559}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543328537}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 173e3dccca23a9b4c90b2a80781b378d, type: 3}
@@ -14849,11 +14884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd73308775b0c14799c02d4d090f9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1543328537 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7902537659406733898, guid: c385fdfd50117534984891db7d4345fd, type: 3}
-  m_PrefabInstance: {fileID: 1222072559}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1683741677
 GameObject:
   m_ObjectHideFlags: 0
@@ -38599,7 +38629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &2097996603
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38726,10 +38756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   pokemonDatas:
-  - {fileID: 11400000, guid: 97359da390ef2b143b631591a937d8d8, type: 2}
-  - {fileID: 11400000, guid: eaa6614ca46752b41822812ea3ffafb5, type: 2}
-  - {fileID: 11400000, guid: d88d1c64347e28d45a55125ac2cd3b9f, type: 2}
-  - {fileID: 11400000, guid: 06bb6f4676c66844aa41274587cf1e88, type: 2}
+  - {fileID: 11400000, guid: 7e41e3a22cf2b6443ae56b1f11cb7171, type: 2}
   level: 7
   popUp:
     m_PersistentCalls:
